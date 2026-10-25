@@ -1,0 +1,196 @@
+@import "tailwindcss";
+/* Token di-generate dari DESIGN.md lewat `npm run tokens`. Jangan edit tokens.css manual. */
+@import "../styles/tokens.css";
+
+/* Penyesuaian yang tidak bisa diekspresikan di DESIGN.md: stack font + line-height */
+@theme {
+  --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Literata Variable", "Literata", ui-serif, Georgia, serif;
+  --font-display: var(--font-sans);
+  --font-headline: var(--font-sans);
+  --font-title: var(--font-sans);
+  --font-item-title: var(--font-sans);
+  --font-body: var(--font-sans);
+  --font-label: var(--font-sans);
+  --font-caption: var(--font-sans);
+  --font-footnote: var(--font-sans);
+  --font-body-article: var(--font-serif);
+
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.02em;
+  --text-headline--line-height: 1.2;
+  --text-headline--letter-spacing: -0.015em;
+  --text-title--line-height: 1.3;
+  --text-item-title--line-height: 1.35;
+  --text-body-article--line-height: 1.7;
+  --text-body--line-height: 1.5;
+  --text-label--line-height: 1.3;
+  --text-caption--line-height: 1.4;
+  --text-footnote--line-height: 1;
+
+  /* Bobot font ikut ukuran teks. Di Tailwind v4, `font-display` hanya mengatur family,
+     jadi bobot dari DESIGN.md dipasang di sini agar `text-display` dll. lengkap. */
+  --text-display--font-weight: 800;
+  --text-headline--font-weight: 800;
+  --text-title--font-weight: 700;
+  --text-item-title--font-weight: 700;
+  --text-label--font-weight: 600;
+  --text-caption--font-weight: 500;
+  --text-footnote--font-weight: 700;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  ::selection {
+    background: var(--color-primary-soft);
+  }
+}
+
+/* ---------- Isi artikel (MDX) ---------- */
+.prose-artikel > p,
+.prose-artikel li {
+  font-family: var(--font-serif);
+  font-size: var(--text-body-article);
+  line-height: 1.7;
+}
+.prose-artikel > p {
+  margin: 0 0 1.25rem;
+}
+.prose-artikel > h2 {
+  font-size: var(--text-title);
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 2.5rem 0 1rem;
+}
+.prose-artikel > ol,
+.prose-artikel > ul {
+  margin: 0 0 1.25rem;
+  padding-left: 1.4rem;
+}
+.prose-artikel > ol {
+  list-style: decimal;
+}
+.prose-artikel > ul {
+  list-style: disc;
+}
+.prose-artikel li {
+  margin-bottom: 0.75rem;
+  padding-left: 0.25rem;
+}
+.prose-artikel li::marker {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  color: var(--color-ink-muted);
+}
+.prose-artikel strong {
+  font-weight: 700;
+}
+.prose-artikel a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Stabilo: hanya untuk klaim riset ---------- */
+mark.klaim {
+  background: linear-gradient(transparent 30%, var(--color-highlight) 30%);
+  color: var(--color-on-highlight);
+  padding: 0 2px;
+  margin: 0 -2px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* ---------- Nomor footnote ---------- */
+.fn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  margin-left: 3px;
+  border-radius: 999px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font: 700 0.75rem/1 var(--font-sans);
+  vertical-align: 0.15em;
+  cursor: pointer;
+  border: 0;
+}
+.fn:hover {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+/* ---------- Sidenote (desktop) ---------- */
+.sidenote {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .sidenote {
+    display: block;
+    float: right;
+    clear: right;
+    width: 240px;
+    margin-right: -400px;
+    margin-top: 0.3rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-caption);
+    line-height: 1.4;
+    color: var(--color-ink-muted);
+  }
+}
+
+/* ---------- Sheet sumber (mobile) ---------- */
+dialog.sheet {
+  margin: auto auto 0;
+  width: 100%;
+  max-width: 520px;
+  max-height: 85vh;
+  border: 0;
+  padding: 12px 24px 24px;
+  border-radius: 16px 16px 0 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  box-shadow: 0 -8px 24px rgba(27, 36, 48, 0.12);
+}
+dialog.sheet::backdrop {
+  background: rgb(27 36 48 / 0.4);
+}
+@media (prefers-reduced-motion: no-preference) {
+  dialog.sheet[open] {
+    animation: sheet-up 220ms ease-out;
+  }
+}
+@keyframes sheet-up {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Sorotan singkat saat lompat ke daftar sumber (desktop) */
+.flash {
+  background: var(--color-primary-soft);
+  transition: background 1.2s ease-out;
+}

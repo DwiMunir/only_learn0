@@ -1,0 +1,167 @@
+{
+  "title": "Only Learn research note",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "topic": {
+      "type": "string",
+      "enum": [
+        "uang",
+        "karier",
+        "psikologi-sehari-hari"
+      ]
+    },
+    "hook": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Hook reel, jadi judul artikel"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "summary": {
+      "minItems": 1,
+      "maxItems": 5,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "body": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Isi artikel dalam MDX. Tandai klaim dengan <Klaim sumber=\"id\">...</Klaim>"
+    },
+    "sources": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "ID unik, dipakai di <Klaim sumber=\"...\">. Contoh: stone-2012"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Judul sumber asli"
+          },
+          "authors": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Penulis atau lembaga. Contoh: Stone, Schneider & Harter"
+          },
+          "year": {
+            "type": "integer",
+            "minimum": 1800,
+            "maximum": 2100
+          },
+          "publisher": {
+            "description": "Jurnal, penerbit, atau lembaga",
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Link ke sumber asli (DOI, jurnal, laporan resmi)"
+          },
+          "level": {
+            "type": "string",
+            "enum": [
+              "strong",
+              "moderate",
+              "survey",
+              "preliminary",
+              "regulation"
+            ],
+            "description": "Level bukti"
+          },
+          "supports": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Satu kalimat: apa yang didukung sumber ini"
+          },
+          "note": {
+            "description": "Catatan kecil di bawah meteran bukti",
+            "type": "string"
+          },
+          "checkedAt": {
+            "description": "Tanggal sumber dicek. Default: checkedAt artikel",
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "authors",
+          "year",
+          "url",
+          "level",
+          "supports"
+        ]
+      }
+    },
+    "claims": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Klaim singkat untuk bagian Apa kata riset"
+          },
+          "sources": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+            },
+            "description": "ID sumber pendukung"
+          }
+        },
+        "required": [
+          "text",
+          "sources"
+        ]
+      }
+    },
+    "reel": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "pattern": "^https:\\/\\/(www\\.)?instagram\\.com\\/(reel|p)\\/[A-Za-z0-9_-]+\\/?"
+        },
+        "poster": {
+          "type": "string"
+        }
+      }
+    },
+    "checkedAt": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    }
+  },
+  "required": [
+    "slug",
+    "topic",
+    "hook",
+    "description",
+    "summary",
+    "body",
+    "sources"
+  ]
+}

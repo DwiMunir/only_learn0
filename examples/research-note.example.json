@@ -1,0 +1,28 @@
+{
+  "slug": "contoh-impor-morena",
+  "topic": "psikologi-sehari-hari",
+  "hook": "Rebahannya sama persis, tapi Minggu selalu kalah bahagia.",
+  "description": "Contoh research note dari Morena. Kenapa Minggu sore terasa berat, dan apa kata riset soal mood di akhir pekan.",
+  "summary": [
+    "Secara rata-rata, mood orang lebih baik di akhir pekan.",
+    "Mood Sabtu dan Minggu tidak berbeda. Yang bikin Minggu terasa kalah adalah bayangan Senin."
+  ],
+  "body": "## Kenapa Minggu terasa beda\n\nDari data harian ratusan ribu orang, <Klaim sumber=\"stone-2012\">suasana hati cenderung lebih baik di akhir pekan dan hari Jumat</Klaim>.\n\n<ApaKataRiset />\n\n## Yang bisa kamu lakukan\n\n1. **Cicil sebelum libur.** Tulis tiga hal pertama untuk Senin.",
+  "sources": [
+    {
+      "id": "stone-2012",
+      "title": "Day-of-week mood patterns in the United States: On the existence of 'Blue Monday', 'Thank God it's Friday' and weekend effects",
+      "authors": "Stone, Schneider & Harter",
+      "year": 2012,
+      "publisher": "The Journal of Positive Psychology, 7(4)",
+      "url": "https://doi.org/10.1080/17439760.2012.691980",
+      "level": "moderate",
+      "supports": "Mood lebih baik di akhir pekan dan hari Jumat, tetapi tidak ada perbedaan antara Sabtu dan Minggu.",
+      "note": "Survei telepon nasional dengan sekitar 340.000 responden di Amerika Serikat."
+    }
+  ],
+  "claims": [
+    { "text": "Mood naik di akhir pekan", "sources": ["stone-2012"] }
+  ],
+  "checkedAt": "2026-10-25"
+}
