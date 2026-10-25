@@ -72,29 +72,29 @@ if (hasil.apaKataRisetDitambah) {
 }
 const mdx = toMdx(hasil.frontmatter, hasil.body);
 
+// Validasi dulu di folder sementara, di semua mode. Kalau ada error, tidak ada yang ditulis ke CONTENT_DIR.
+const tmpFile = path.join(fs.mkdtempSync(path.join(os.tmpdir(), "impor-cek-")), `${note.slug}.mdx`);
+fs.writeFileSync(tmpFile, mdx);
+let findings;
+try {
+  findings = validateArticle(parseArticleFile(tmpFile));
+} catch (e) {
+  fail((e as Error).message);
+}
 if (values.cek) {
-  // Hanya validasi: tulis ke folder sementara, CONTENT_DIR tidak disentuh.
-  const file = path.join(fs.mkdtempSync(path.join(os.tmpdir(), "impor-cek-")), `${note.slug}.mdx`);
-  fs.writeFileSync(file, mdx);
-  let findings;
-  try {
-    findings = validateArticle(parseArticleFile(file));
-  } catch (e) {
-    fail((e as Error).message);
-  }
-  const errors = printReports([{ file, findings }]);
-  process.exit(errors > 0 ? 1 : 0);
+  process.exit(printReports([{ file: tmpFile, findings }]) > 0 ? 1 : 0);
+}
+if (findings.some((f) => f.level === "error")) {
+  printReports([{ file: tmpFile, findings }]);
+  process.exit(1);
 }
 
 fs.mkdirSync(CONTENT_DIR, { recursive: true });
 fs.writeFileSync(target, mdx);
 const rel = path.relative(process.cwd(), target);
-if (values.terbit) {
-  console.log(`${color.green("✓")} Diterbitkan: ${rel}\n`);
-  printReports([{ file: target, findings: validateArticle(parseArticleFile(target)) }]);
-} else {
-  console.log(`${color.green("✓")} Diimpor: ${rel} ${color.dim("(draft)")}\n`);
-  printReports([{ file: target, findings: validateArticle(parseArticleFile(target)) }]);
+console.log(`${color.green("✓")} ${values.terbit ? "Diterbitkan" : "Diimpor"}: ${rel}${values.terbit ? "" : ` ${color.dim("(draft)")}`}\n`);
+printReports([{ file: target, findings }]);
+if (!values.terbit) {
   console.log(`
 Sebelum terbit:
   1. Buka setiap link sumber, pastikan isinya benar-benar mendukung kalimat yang distabilo

@@ -17,9 +17,9 @@ flowchart TD
 
 ---
 
-## 1. Kontrak data: `research-note.json`
+## 1. Kontrak data: research-note
 
-Morena cukup menghasilkan satu file JSON per konten. Schema lengkapnya ada di `schemas/research-note.schema.json` (regenerate dengan `npm run schema`), dan contohnya di `examples/research-note.example.json`.
+Morena menghasilkan satu file JSON per konten dan menyimpannya di `content/<slug>/artikel.json`. Kontraknya disebut research-note. Schema lengkapnya ada di `schemas/research-note.schema.json` (regenerate dengan `npm run schema`), dan contohnya di `examples/research-note.example.json`.
 
 ```json
 {
@@ -88,7 +88,7 @@ lalu commit dan push lagi. Tidak ada link ke blog di caption Instagram.
 Tempel blok ini ke prompt langkah riset di Morena supaya output-nya langsung cocok dengan blog:
 
 ```text
-Selain naskah video, hasilkan research-note.json sesuai schema Only Learn.
+Selain naskah video, tulis content/<slug>/artikel.json mengikuti schema research-note Only Learn.
 
 Aturan sumber:
 - Utamakan sumber primer: artikel jurnal (pakai link DOI), laporan resmi lembaga, atau peraturan resmi. Hindari artikel yang hanya mengutip ulang.
