@@ -13,7 +13,7 @@
     "reel": "tsx --conditions=import scripts/reel.ts",
     "schema": "tsx scripts/schema.ts",
     "tokens": "design.md lint DESIGN.md && design.md export DESIGN.md --format css-tailwind > src/styles/tokens.css",
-    "test": "tsx --conditions=import --test src/lib/*.test.ts",
+    "test": "tsx --conditions=import --test src/lib/*.test.ts scripts/*.test.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
