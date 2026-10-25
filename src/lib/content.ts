@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import { createProcessor } from "@mdx-js/mdx";
 import { evidenceLevels, type EvidenceLevel } from "./evidence";
 import { frontmatterSchema, formatZodError, slugSchema, type Frontmatter, type Source } from "./schema";
 
@@ -128,6 +129,54 @@ export function citedIdsInBody(body: string): string[] {
   return ids;
 }
 
+/* Gerbang keamanan: isi artikel dievaluasi sebagai MDX saat build, jadi
+   hanya <Klaim sumber="…"> dan <ApaKataRiset /> yang boleh muncul. */
+type MdxNode = {
+  type: string;
+  name?: string | null;
+  value?: unknown;
+  attributes?: { type: string; name?: string; value?: unknown }[];
+  children?: MdxNode[];
+};
+
+export function cekIsiMdx(body: string): string[] {
+  let tree: MdxNode;
+  try {
+    tree = createProcessor().parse(body) as unknown as MdxNode;
+  } catch (e) {
+    return [`MDX tidak bisa dibaca: ${e instanceof Error ? e.message : String(e)}`];
+  }
+
+  const errors = new Set<string>();
+  const walk = (node: MdxNode) => {
+    if (node.type === "mdxjsEsm") {
+      errors.add("Isi artikel tidak boleh berisi import/export.");
+    } else if (node.type === "mdxFlowExpression" || node.type === "mdxTextExpression") {
+      errors.add("Isi artikel tidak boleh berisi ekspresi {…}.");
+    } else if (node.type === "mdxJsxFlowElement" || node.type === "mdxJsxTextElement") {
+      const name = node.name ?? "";
+      const attrs = node.attributes ?? [];
+      if (name === "Klaim") {
+        const ok =
+          attrs.length === 1 &&
+          attrs[0].type === "mdxJsxAttribute" &&
+          attrs[0].name === "sumber" &&
+          typeof attrs[0].value === "string";
+        if (!ok) errors.add('<Klaim> hanya boleh punya atribut sumber="…" berupa teks.');
+      } else if (name === "ApaKataRiset") {
+        if (attrs.length > 0 || (node.children?.length ?? 0) > 0) {
+          errors.add("<ApaKataRiset /> tidak boleh punya atribut atau isi.");
+        }
+      } else {
+        errors.add(`Tag <${name}> tidak diizinkan. Hanya <Klaim sumber="…"> dan <ApaKataRiset />.`);
+      }
+    }
+    node.children?.forEach(walk);
+  };
+  walk(tree);
+  return [...errors];
+}
+
 export function validateArticle(article: Article): Finding[] {
   const findings: Finding[] = [];
   const { frontmatter: fm, body, slug } = article;
@@ -141,6 +190,8 @@ export function validateArticle(article: Article): Finding[] {
   const ids = fm.sources.map((s) => s.id);
   const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
   for (const id of new Set(dupes)) err(`ID sumber "${id}" dipakai lebih dari sekali.`);
+
+  for (const m of cekIsiMdx(body)) err(m);
 
   const known = new Set(ids);
   const bodyIds = citedIdsInBody(body);
@@ -177,7 +228,7 @@ export function validateArticle(article: Article): Finding[] {
   }
 
   if (!fm.reel?.url) {
-    (fm.draft ? warn : err)("reel.url belum diisi. Isi dengan `npm run reel -- <slug> <link-reel>`.");
+    warn("reel.url belum diisi. Link reel opsional; isi dengan `npm run reel -- <slug> <link-reel>` kalau reelnya sudah terbit.");
   }
   if (fm.reel?.poster) {
     const p = fm.reel.poster;

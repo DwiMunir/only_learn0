@@ -7,12 +7,13 @@
     "dev": "next dev",
     "build": "npm run cek && next build",
     "start": "next start",
-    "cek": "tsx scripts/cek.ts",
-    "baru": "tsx scripts/baru.ts",
-    "impor": "tsx scripts/impor.ts",
-    "reel": "tsx scripts/reel.ts",
+    "cek": "tsx --conditions=import scripts/cek.ts",
+    "baru": "tsx --conditions=import scripts/baru.ts",
+    "impor": "tsx --conditions=import scripts/impor.ts",
+    "reel": "tsx --conditions=import scripts/reel.ts",
     "schema": "tsx scripts/schema.ts",
     "tokens": "design.md lint DESIGN.md && design.md export DESIGN.md --format css-tailwind > src/styles/tokens.css",
+    "test": "tsx --conditions=import --test src/lib/*.test.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

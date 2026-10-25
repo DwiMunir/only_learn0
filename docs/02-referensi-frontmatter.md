@@ -12,7 +12,7 @@ Semua aturan di bawah dicek oleh `npm run cek` dan saat build. Sumber kebenarann
 | `publishedAt` | ya | `YYYY-MM-DD` | Tanggal terbit. Menentukan urutan di daftar. |
 | `checkedAt` | ya | `YYYY-MM-DD` | Tanggal terakhir semua sumber dicek. Tampil sebagai "Dicek ...". |
 | `draft` | tidak | `true` \| `false` | Default `false`. Draft tidak tampil di produksi. |
-| `reel.url` | ya saat terbit | link reel Instagram | Contoh `https://www.instagram.com/reel/De5eo3WFZqJ/` |
+| `reel.url` | tidak | link reel Instagram; opsional, diisi `npm run reel` atau Morena | Contoh `https://www.instagram.com/reel/De5eo3WFZqJ/` |
 | `reel.poster` | tidak | path | Contoh `/reels/sunday-scaries.jpg` (file di `public/reels/`). |
 | `summary` | ya | 1–5 teks | Poin di bagian "Ringkasan". |
 | `sources` | ya | daftar, minimal 1 | Lihat tabel di bawah. Urutannya jadi nomor footnote. |
