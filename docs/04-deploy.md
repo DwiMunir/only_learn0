@@ -10,7 +10,7 @@ Situs ini statis penuh: semua halaman di-render saat build, tanpa database atau 
 
    | Variable | Production | Preview |
    |---|---|---|
-   | `NEXT_PUBLIC_SITE_URL` | `https://onlylearn.id` (domain kamu) | (kosongkan) |
+   | `NEXT_PUBLIC_SITE_URL` | `https://onlylearn0.vercel.app` | (kosongkan) |
    | `SHOW_DRAFTS` | `false` | `true` |
 
    Dengan pengaturan ini, setiap branch atau Pull Request mendapat link preview yang **menampilkan draft** (dan otomatis `noindex`), sementara produksi hanya menampilkan catatan yang sudah terbit.

@@ -94,7 +94,11 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
       <main>
         <Container>
           <article className="max-w-[680px] pt-6">
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+            {/* "<" di-escape: teks frontmatter tidak boleh bisa menutup tag <script> ini */}
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+            />
 
             <header>
               <div className="flex flex-wrap items-center gap-2">

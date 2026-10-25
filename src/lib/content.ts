@@ -177,6 +177,17 @@ export function cekIsiMdx(body: string): string[] {
   return [...errors];
 }
 
+/** Semua teks di frontmatter, beserta jalurnya (mis. sources.0.title). */
+function teksFrontmatter(value: unknown, jalur = ""): { jalur: string; teks: string }[] {
+  const anak = (k: string | number) => (jalur ? `${jalur}.${k}` : String(k));
+  if (typeof value === "string") return [{ jalur: jalur || "(root)", teks: value }];
+  if (Array.isArray(value)) return value.flatMap((v, i) => teksFrontmatter(v, anak(i)));
+  if (value && typeof value === "object") {
+    return Object.entries(value).flatMap(([k, v]) => teksFrontmatter(v, anak(k)));
+  }
+  return [];
+}
+
 export function validateArticle(article: Article): Finding[] {
   const findings: Finding[] = [];
   const { frontmatter: fm, body, slug } = article;
@@ -185,6 +196,11 @@ export function validateArticle(article: Article): Finding[] {
 
   if (!slugSchema.safeParse(slug).success) {
     err(`Nama file "${slug}.mdx" harus huruf kecil, angka, dan tanda hubung.`);
+  }
+
+  // Frontmatter ikut ditulis ke JSON-LD di dalam <script>: "</" di sana bisa menutup tag itu.
+  for (const { jalur, teks } of teksFrontmatter(fm)) {
+    if (teks.includes("</")) err(`Frontmatter tidak boleh berisi "</" (${jalur}).`);
   }
 
   const ids = fm.sources.map((s) => s.id);

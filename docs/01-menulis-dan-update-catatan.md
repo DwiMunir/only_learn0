@@ -26,9 +26,7 @@ stateDiagram-v2
 
 **Cara A: dari Morena** (disarankan kalau risetnya sudah dikerjakan Morena)
 
-```bash
-npm run impor -- ~/morena/output/sunday-scaries.research-note.json
-```
+Tidak ada perintah yang perlu dijalankan di repo ini. Di Morena, tekan **Buat artikel** pada video yang sudah selesai, buka dan centang setiap sumber di halaman review, lalu tekan **Publish ke blog**. Morena yang mengimpor, menjalankan `npm run cek`, commit, dan push. Detailnya di [03-integrasi-morena-redipost.md](03-integrasi-morena-redipost.md).
 
 **Cara B: manual dari template**
 
@@ -38,7 +36,7 @@ npm run baru -- "Unpopular opinion: pria paling aman itu yang keliatan bokek." -
 
 Topik yang tersedia: `uang`, `karier`, `psikologi-sehari-hari` (diatur di `src/lib/site.ts`).
 
-Slug adalah nama file sekaligus URL. Buat pendek, karena slug juga dipakai di link caption (`/c/keliatan-bokek`).
+Slug adalah nama file sekaligus URL (`/catatan/keliatan-bokek`). Buat pendek dan mudah dibaca.
 
 ---
 
@@ -199,15 +197,7 @@ Tanpa poster pun situs tetap jalan: thumbnail diganti blok gelap dengan ikon pla
 
 ---
 
-## 10. Link pendek untuk caption
-
-Setiap catatan bisa dibuka lewat `/c/<slug>`, misalnya `onlylearn.id/c/sunday-scaries`. Link di caption Instagram tidak bisa diklik, jadi tulis link pendek ini sebagai teks dan arahkan juga ke link bio:
-
-> Sumber lengkapnya ada di onlylearn.id/c/sunday-scaries (link di bio)
-
----
-
-## 11. Mengubah teks situs
+## 10. Mengubah teks situs
 
 | Yang mau diubah | File |
 |---|---|

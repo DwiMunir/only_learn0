@@ -23,11 +23,10 @@ Buka http://localhost:3000. Di mode dev, catatan berstatus draft ikut tampil den
 ```mermaid
 flowchart LR
     A[Ide konten] --> B[Morena: riset + video]
-    B --> C[research-note.json]
+    B --> C[Morena: artikel.json]
     B --> D[Redipost: posting reel]
-    C -->|npm run impor| E[Catatan draft]
-    E --> F[Cek sumber manual<br/>npm run cek]
-    F -->|draft: false + push| G[Vercel: situs live]
+    C --> F[Review di Morena<br/>buka dan centang tiap sumber]
+    F -->|Publish ke blog: impor + cek + commit + push| G[Vercel: situs live]
     D -->|link reel| H[npm run reel]
     H --> G
 ```
@@ -40,7 +39,7 @@ Satu riset menghasilkan tiga output: video (Remotion), caption dan posting (Redi
 |---|---|
 | `npm run dev` | Jalankan situs lokal (draft ikut tampil) |
 | `npm run baru -- "Hook reel" --topik uang` | Buat catatan baru dari template (draft) |
-| `npm run impor -- file.json` | Impor research-note.json dari Morena jadi catatan draft |
+| `npm run impor -- file.json` | Dijalankan Morena saat **Publish ke blog** (lihat [docs/03](docs/03-integrasi-morena-redipost.md)). Manual: impor artikel.json jadi catatan draft |
 | `npm run reel -- <slug> <link-reel>` | Isi link reel setelah terbit di Instagram |
 | `npm run cek` | Validasi semua catatan. Otomatis jalan sebelum build |
 | `npm run build` | Cek konten lalu build produksi |

@@ -35,11 +35,32 @@ test("atribut Klaim selain sumber teks ditolak", () => {
 });
 test("ApaKataRiset dengan isi ditolak", () => assert.match(cekIsiMdx("<ApaKataRiset>x</ApaKataRiset>").join("\n"), /ApaKataRiset/));
 test("MDX rusak dilaporkan", () => assert.match(cekIsiMdx('<Klaim sumber="a">tidak ditutup').join("\n"), /^MDX tidak bisa dibaca/));
-test("artikel terbit tanpa link reel hanya warning", () => {
+const cekMdx = (mdx: string) => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "cek-"));
   const file = path.join(dir, "uji.mdx");
-  fs.writeFileSync(file, MDX_TANPA_REEL);
-  const f = validateArticle(parseArticleFile(file));
+  fs.writeFileSync(file, mdx);
+  return validateArticle(parseArticleFile(file));
+};
+
+test("artikel terbit tanpa link reel hanya warning", () => {
+  const f = cekMdx(MDX_TANPA_REEL);
   assert.ok(f.some((x) => x.level === "warning" && /reel\.url/.test(x.message)));
+  assert.ok(!f.some((x) => x.level === "error"));
+});
+test('frontmatter berisi "</" ditolak, dengan jalur fieldnya', () => {
+  const mdx = MDX_TANPA_REEL.replace("description: Uji", 'description: "x</script><script>alert(1)</script>"').replace(
+    "title: T,",
+    'title: "T </b>",',
+  );
+  const errors = cekMdx(mdx)
+    .filter((x) => x.level === "error")
+    .map((x) => x.message);
+  assert.deepEqual(errors, [
+    'Frontmatter tidak boleh berisi "</" (description).',
+    'Frontmatter tidak boleh berisi "</" (sources.0.title).',
+  ]);
+});
+test('"<" tanpa "/" di frontmatter tetap boleh', () => {
+  const f = cekMdx(MDX_TANPA_REEL.replace("description: Uji", 'description: "kurang dari <5 menit"'));
   assert.ok(!f.some((x) => x.level === "error"));
 });
