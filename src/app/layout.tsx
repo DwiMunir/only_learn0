@@ -3,6 +3,7 @@ import "@fontsource-variable/literata";
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import { Analytics } from "@vercel/analytics/next";
 import { Footer } from "@/components/footer";
 import { showDrafts } from "@/lib/content";
 import { site } from "@/lib/site";
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="min-h-dvh">
         {children}
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
