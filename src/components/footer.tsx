@@ -8,7 +8,7 @@ export function Footer() {
     <footer className="mt-16 bg-primary text-on-dark">
       <Container className="py-8">
         <div className="inline-flex rounded-xl bg-paper px-3 py-1.5">
-          <Link href="/" className="focus-visible:outline-paper">
+          <Link href="/">
             <Wordmark />
           </Link>
         </div>
