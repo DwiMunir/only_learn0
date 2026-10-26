@@ -2,6 +2,8 @@
 
 Versi 1.0, 25 Oktober 2026. Pasangan dari `DESIGN.md` v1.0.
 
+> **Catatan: dokumen ini menjelaskan tampilan v1.** Tampilan sekarang mengikuti `DESIGN.md` v2 (palet navy dan teal, hero kaca dengan gradasi lembut, poster reel, footer navy dengan lencana logo putih). Di mana pun prompt atau checklist di bawah bertentangan dengan itu (gradasi dan bayangan "dilarang", "teks biru", "permukaan abu-abu terang"), `DESIGN.md` v2 yang berlaku.
+
 ## Cara pakai
 
 1. Buat project baru di Stitch, pilih device **Mobile** untuk Prompt 1–5. Prompt 6 dipakai untuk versi desktop.

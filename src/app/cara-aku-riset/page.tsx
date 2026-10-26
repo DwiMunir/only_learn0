@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { EvidenceMeter } from "@/components/evidence-meter";
 import { CorrectionNote } from "@/components/research";
+import { GlassHero } from "@/components/hero";
 import { TopBar } from "@/components/top-bar";
 import { ButtonLink, Container, SectionTitle } from "@/components/ui";
 import { getAllCorrections } from "@/lib/content";
@@ -28,20 +29,21 @@ export default function MethodPage() {
     <>
       <TopBar back={{ href: "/", label: "Beranda" }} />
       <main>
+        <GlassHero>
+          <h1 className="text-headline font-headline text-primary">Cara aku riset</h1>
+          <p className="mt-2 text-body text-ink">
+            Setiap reel di @{site.instagram.handle} berangkat dari pertanyaan sehari-hari. Halaman ini menjelaskan
+            dari mana jawabannya datang, dan seberapa kuat buktinya.
+          </p>
+        </GlassHero>
         <Container>
           <div className="max-w-[680px] pt-6">
-            <h1 className="text-headline font-headline">Cara aku riset</h1>
-            <p className="mt-4 font-serif text-body-article">
-              Setiap reel di @{site.instagram.handle} berangkat dari pertanyaan sehari-hari. Halaman ini menjelaskan
-              dari mana jawabannya datang, dan seberapa kuat buktinya.
-            </p>
-
-            <section aria-labelledby="langkah" className="mt-10">
+            <section aria-labelledby="langkah">
               <SectionTitle id="langkah">Empat langkah</SectionTitle>
               <ol className="space-y-4">
                 {steps.map((s, i) => (
-                  <li key={s.title} className="flex gap-4">
-                    <span className="grid size-8 shrink-0 place-items-center rounded-full bg-surface text-label font-label">
+                  <li key={s.title} className="flex gap-4 rounded-2xl bg-surface p-4">
+                    <span className="grid size-8 shrink-0 place-items-center rounded-full bg-primary text-label font-label text-on-primary">
                       {i + 1}
                     </span>
                     <div>
@@ -55,9 +57,9 @@ export default function MethodPage() {
 
             <section aria-labelledby="label-bukti" className="mt-12">
               <SectionTitle id="label-bukti">Arti label bukti</SectionTitle>
-              <ul>
+              <ul className="space-y-3">
                 {evidenceLevelKeys.map((key) => (
-                  <li key={key} className="border-b border-line py-4 last:border-b-0">
+                  <li key={key} className="rounded-2xl bg-surface p-4">
                     <EvidenceMeter level={key} />
                     <p className="mt-1.5 text-body text-ink-muted">{evidenceLevels[key].explain}</p>
                   </li>
