@@ -1,6 +1,7 @@
 import "@fontsource-variable/plus-jakarta-sans";
 import "@fontsource-variable/literata";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/next";
