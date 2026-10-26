@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { getAllArticles, getArticle } from "@/lib/content";
 import { getTopic, site } from "@/lib/site";
@@ -16,6 +18,8 @@ export default async function OgImage({ params }: { params: Promise<{ slug: stri
   const article = getArticle(slug);
   const title = article?.frontmatter.title ?? site.name;
   const topic = article ? getTopic(article.frontmatter.topic)?.name : undefined;
+  // Monogram dibaca dari disk dan disematkan sebagai data URL
+  const mark = `data:image/png;base64,${readFileSync(join(process.cwd(), "public/brand/ol-mark.png")).toString("base64")}`;
   const count = article?.sources.length ?? 0;
 
   return new ImageResponse(
@@ -28,11 +32,31 @@ export default async function OgImage({ params }: { params: Promise<{ slug: stri
           flexDirection: "column",
           justifyContent: "space-between",
           background: "#FFFFFF",
-          color: "#1B2430",
+          color: "#14283A",
           padding: "64px 72px",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        <div style={{ display: "flex", fontSize: 32, fontWeight: 800 }}>{site.wordmark}</div>
+        <div
+          style={{
+            position: "absolute",
+            top: -120,
+            right: -100,
+            width: 360,
+            height: 360,
+            borderRadius: 9999,
+            background: "#ADDFE5",
+          }}
+        />
+        <div style={{ display: "flex", alignItems: "center", gap: 14, fontSize: 32, fontWeight: 800 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={mark} height={40} width={68} alt="" />
+          <span style={{ display: "flex", gap: 10 }}>
+            <span style={{ color: "#0E314D" }}>Only</span>
+            <span style={{ color: "#3B87A6" }}>Learn</span>
+          </span>
+        </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
             style={{
@@ -47,10 +71,10 @@ export default async function OgImage({ params }: { params: Promise<{ slug: stri
             {title}
           </div>
         </div>
-        <div style={{ display: "flex", gap: 32, fontSize: 28, color: "#5A6472" }}>
+        <div style={{ display: "flex", gap: 32, fontSize: 28, color: "#5B6B78" }}>
           {topic && <span>{topic}</span>}
           <span>{count} sumber</span>
-          <span style={{ color: "#1F3FAF" }}>@{site.instagram.handle}</span>
+          <span style={{ color: "#2F6B8D" }}>@{site.instagram.handle}</span>
         </div>
       </div>
     ),

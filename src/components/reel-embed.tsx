@@ -1,33 +1,30 @@
 import { PlayIcon } from "./icons";
+import { ReelThumb } from "./reel-row";
+import { site } from "@/lib/site";
 
 /**
- * Facade reel: poster + tombol play yang membuka Instagram.
+ * Baris tautan ke reel di Instagram: thumbnail + tombol play.
  * Sengaja tidak memuat script embed Instagram supaya halaman tetap ringan dan cepat dari link bio.
  */
-export function ReelEmbed({ url, poster, title }: { url?: string; poster?: string; title: string }) {
+export function ReelLink({ url, poster }: { url?: string; poster?: string }) {
   if (!url) return null;
   return (
-    <figure className="my-6">
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener"
-        className="group relative block aspect-[9/16] w-full overflow-hidden rounded-md bg-ink lg:w-[360px]"
-      >
-        {poster ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={poster} alt="" className="absolute inset-0 h-full w-full object-cover" />
-        ) : (
-          <span className="absolute inset-x-6 bottom-8 text-headline font-headline text-paper">{title}</span>
-        )}
-        <span className="absolute inset-0 grid place-items-center">
-          <span className="grid size-16 place-items-center rounded-full bg-paper/90 text-ink group-hover:bg-paper">
-            <PlayIcon className="ml-1 size-7" />
-          </span>
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener"
+      className="flex items-center gap-3 rounded-2xl border border-line p-2.5 hover:bg-surface"
+    >
+      <span className="relative shrink-0">
+        <ReelThumb poster={poster} className="h-[74px] w-[52px]" />
+        <span className="absolute inset-0 grid place-items-center text-white" aria-hidden="true">
+          <PlayIcon className="size-4 drop-shadow" />
         </span>
-        <span className="sr-only">Tonton reel di Instagram</span>
-      </a>
-      <figcaption className="mt-2 text-caption font-caption text-ink-muted">Tonton reel aslinya di Instagram</figcaption>
-    </figure>
+      </span>
+      <span className="min-w-0">
+        <span className="block text-label font-label text-primary">Tonton reelnya</span>
+        <span className="block text-caption text-ink-muted">Instagram @{site.instagram.handle}</span>
+      </span>
+    </a>
   );
 }

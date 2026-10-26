@@ -3,7 +3,6 @@
  */
 export const site = {
   name: "Only Learn",
-  wordmark: "only learn",
   tagline: "Riset di balik setiap reel.",
   intro: "Tiap konten @only_learn0 ada sumbernya. Ini catatan lengkapnya.",
   description:

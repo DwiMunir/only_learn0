@@ -20,7 +20,7 @@ export function EvidenceMeter({ level, className = "" }: { level: EvidenceLevel;
         {[1, 2, 3, 4].map((i) => (
           <span
             key={i}
-            className={`inline-block h-1.5 w-3.5 rounded-full ${i <= (info.score ?? 0) ? "bg-primary" : "bg-line"}`}
+            className={`inline-block h-1.5 w-3.5 rounded-full ${i <= (info.score ?? 0) ? "bg-brand-teal" : "bg-line"}`}
           />
         ))}
       </span>

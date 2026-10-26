@@ -12,7 +12,7 @@ function pick(sources: NumberedSource[], ids: string[]) {
 
 function StaticNumber({ n }: { n: number }) {
   return (
-    <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary-soft px-1.5 text-footnote font-footnote text-primary">
+    <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-footnote font-footnote text-on-primary">
       {n}
     </span>
   );
@@ -57,7 +57,7 @@ export function Klaim({
           <span className="mt-1.5 block">
             <EvidenceMeter level={s.level as EvidenceLevel} />
           </span>
-          <a href={s.url} target="_blank" rel="noopener" className="mt-1 inline-block text-primary underline underline-offset-2">
+          <a href={s.url} target="_blank" rel="noopener" className="mt-1 inline-block text-accent underline underline-offset-2">
             Buka sumber
           </a>
         </span>
@@ -116,7 +116,7 @@ export function SourceList({ sources }: { sources: NumberedSource[] }) {
               </p>
               <EvidenceMeter level={s.level as EvidenceLevel} className="mt-2" />
               <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-caption font-caption">
-                <a href={s.url} target="_blank" rel="noopener" className="text-primary underline underline-offset-2">
+                <a href={s.url} target="_blank" rel="noopener" className="text-accent underline underline-offset-2">
                   Buka sumber asli
                 </a>
                 <span className="text-ink-muted">Dicek {formatDate(s.checkedAt)}</span>

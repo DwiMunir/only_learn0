@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ReelEmbed } from "@/components/reel-embed";
+import { ReelLink } from "@/components/reel-embed";
 import { ApaKataRiset, CorrectionNote, Klaim, SourceList } from "@/components/research";
 import { SourceDialogProvider, type SheetSource } from "@/components/source-dialog";
+import { GlassHero } from "@/components/hero";
 import { TopBar } from "@/components/top-bar";
 import { ButtonLink, Container } from "@/components/ui";
 import { getAllArticles, getArticle } from "@/lib/content";
@@ -92,48 +93,53 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
     <>
       <TopBar back={{ href: "/catatan", label: "Semua catatan" }} />
       <main>
+        <GlassHero>
+          <div className="flex flex-wrap items-center gap-2">
+            {topic && (
+              <Link
+                href={`/topik/${topic.slug}`}
+                className="inline-flex h-7 items-center rounded-full bg-paper px-3 text-label font-label text-accent"
+              >
+                {topic.name}
+              </Link>
+            )}
+            {fm.draft && (
+              <span className="inline-flex h-7 items-center rounded-full border border-ink-muted px-3 text-label font-label text-ink">
+                Draft
+              </span>
+            )}
+          </div>
+          <h1 className="mt-3 text-headline font-headline text-primary lg:text-[2.25rem] lg:leading-[1.15]">{fm.title}</h1>
+          {/* teks di atas kaca memakai text-ink agar kontras aman di atas lingkaran teal */}
+          <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-caption font-caption text-ink">
+            <span>Dicek {formatDate(fm.checkedAt)}</span>
+            <span>{sources.length} sumber</span>
+            <span>{article.readingMinutes} menit baca</span>
+          </p>
+        </GlassHero>
         <Container>
-          <article className="max-w-[680px] pt-6">
+          <article className="max-w-[680px]">
             {/* "<" di-escape: teks frontmatter tidak boleh bisa menutup tag <script> ini */}
             <script
               type="application/ld+json"
               dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
             />
 
-            <header>
-              <div className="flex flex-wrap items-center gap-2">
-                {topic && (
-                  <Link
-                    href={`/topik/${topic.slug}`}
-                    className="inline-flex h-8 items-center rounded-full bg-surface px-3 text-label font-label"
-                  >
-                    {topic.name}
-                  </Link>
-                )}
-                {fm.draft && (
-                  <span className="inline-flex h-8 items-center rounded-full border border-ink-muted px-3 text-label font-label">
-                    Draft
-                  </span>
-                )}
-              </div>
-              <h1 className="mt-3 text-headline font-headline lg:text-[2.25rem] lg:leading-[1.15]">{fm.title}</h1>
-              <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-caption font-caption text-ink-muted">
-                <span>Dicek {formatDate(fm.checkedAt)}</span>
-                <span>{sources.length} sumber</span>
-                <span>{article.readingMinutes} menit baca</span>
-              </p>
-              <ReelEmbed url={fm.reel?.url} poster={fm.reel?.poster} title={fm.title} />
-            </header>
+            <div className="mt-4">
+              <ReelLink url={fm.reel?.url} poster={fm.reel?.poster} />
+            </div>
 
             <section aria-labelledby="ringkasan" className="mt-8">
               <h2 id="ringkasan" className="mb-3 text-title font-title">
                 Ringkasan
               </h2>
-              <ul className="list-disc space-y-2 pl-5 text-body marker:text-ink-muted">
-                {fm.summary.map((s) => (
-                  <li key={s}>{s}</li>
-                ))}
-              </ul>
+              <div className="rounded-2xl bg-surface p-4">
+                <ul className="list-disc space-y-2 pl-5 text-body marker:text-ink-muted">
+                  {fm.summary.map((s) => (
+                    <li key={s}>{s}</li>
+                  ))}
+                </ul>
+              </div>
             </section>
 
             <SourceDialogProvider sources={sheetSources}>

@@ -74,7 +74,7 @@ export function SourceDialogProvider({ sources, children }: { sources: SheetSour
               <p className="text-caption font-caption text-ink-muted">
                 Sumber {current.n} dari {sources.length}
               </p>
-              <button type="button" onClick={close} className="text-label font-label text-primary">
+              <button type="button" onClick={close} className="text-label font-label text-accent">
                 Tutup
               </button>
             </div>
