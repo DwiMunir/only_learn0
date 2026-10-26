@@ -1,3 +1,4 @@
+import { GlassHero } from "@/components/hero";
 import { ReelList } from "@/components/reel-row";
 import { TopBar } from "@/components/top-bar";
 import { TopicChips } from "@/components/topic-chips";
@@ -15,12 +16,13 @@ export default function HomePage() {
     <>
       <TopBar />
       <main>
+        <GlassHero>
+          <h1 className="text-display font-display text-primary">{site.tagline}</h1>
+          <p className="mt-3 text-body text-ink-muted">{site.intro}</p>
+        </GlassHero>
         <Container className="max-w-[680px] lg:max-w-[1080px]">
           <div className="max-w-[680px]">
-            <section className="pt-8 pb-10">
-              <h1 className="text-display font-display">{site.tagline}</h1>
-              <p className="mt-3 text-body text-ink-muted">{site.intro}</p>
-            </section>
+            <div className="pb-10" />
 
             <section aria-labelledby="reel-terbaru">
               <SectionTitle id="reel-terbaru">Kamu dari reel yang mana?</SectionTitle>
