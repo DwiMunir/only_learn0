@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { GlassHero } from "@/components/hero";
 import { ReelList } from "@/components/reel-row";
 import { TopBar } from "@/components/top-bar";
 import { TopicChips } from "@/components/topic-chips";
@@ -32,17 +33,19 @@ export default async function TopicPage({ params }: { params: Promise<Params> })
     <>
       <TopBar back={{ href: "/", label: "Beranda" }} />
       <main>
+        <GlassHero>
+          <h1 className="text-headline font-headline text-primary">{topic.name}</h1>
+          <p className="mt-2 text-body text-ink">{topic.description}</p>
+        </GlassHero>
         <Container>
           <div className="max-w-[680px] pt-6">
-            <h1 className="text-headline font-headline">{topic.name}</h1>
-            <p className="mt-2 text-body text-ink-muted">{topic.description}</p>
-            <div className="mt-5 mb-4">
+            <div className="mb-2">
               <TopicChips active={topic.slug} />
             </div>
             {articles.length > 0 ? (
               <ReelList articles={articles} showDate />
             ) : (
-              <div className="rounded-lg bg-surface p-6">
+              <div className="mt-4 rounded-2xl bg-surface p-6">
                 <p className="text-body">
                   Belum ada catatan di topik {topic.name}. Ada pertanyaan yang ingin dibahas? Kirim lewat DM.
                 </p>

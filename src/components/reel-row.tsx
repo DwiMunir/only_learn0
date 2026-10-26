@@ -2,16 +2,21 @@ import Link from "next/link";
 import type { Article } from "@/lib/content";
 import { formatDate } from "@/lib/format";
 import { getTopic } from "@/lib/site";
-import { DocIcon, PlayIcon } from "./icons";
+import { DocIcon } from "./icons";
 
 export function ReelThumb({ poster, className = "" }: { poster?: string; className?: string }) {
   if (poster) {
     // eslint-disable-next-line @next/next/no-img-element
-    return <img src={poster} alt="" className={`shrink-0 rounded-sm object-cover ${className}`} />;
+    return <img src={poster} alt="" className={`shrink-0 rounded-xl object-cover ${className}`} />;
   }
+  // Cadangan bila reel belum punya poster: gradasi merek dengan monogram putih
   return (
-    <span className={`grid shrink-0 place-items-center rounded-sm bg-ink text-paper ${className}`} aria-hidden="true">
-      <PlayIcon className="size-4" />
+    <span
+      className={`grid shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand-cyan to-brand-teal ${className}`}
+      aria-hidden="true"
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/brand/ol-mark.png" alt="" className="w-[60%] brightness-0 invert" />
     </span>
   );
 }
@@ -20,12 +25,12 @@ export function ReelRow({ article, showDate = false }: { article: Article; showD
   const fm = article.frontmatter;
   const topic = getTopic(fm.topic);
   return (
-    <li className="border-b border-line last:border-b-0">
-      <Link href={`/catatan/${article.slug}`} className="group flex gap-3 py-3">
-        <ReelThumb poster={fm.reel?.poster} className="h-16 w-12" />
+    <li className="border-t border-line first:border-t-0">
+      <Link href={`/catatan/${article.slug}`} className="group flex items-center gap-3 py-3">
+        <ReelThumb poster={fm.reel?.poster} className="h-[76px] w-[54px]" />
         <span className="min-w-0">
-          <span className="line-clamp-2 text-item-title font-item-title group-hover:text-primary">{fm.title}</span>
-          <span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-caption font-caption text-ink-muted">
+          <span className="line-clamp-2 text-item-title font-item-title group-hover:text-accent">{fm.title}</span>
+          <span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-caption text-ink-muted">
             {showDate ? <span>{formatDate(fm.publishedAt)}</span> : <span>{topic?.name}</span>}
             <span className="inline-flex items-center gap-1">
               <DocIcon className="size-3.5" />

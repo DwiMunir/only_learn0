@@ -1,12 +1,13 @@
+import Link from "next/link";
 import { GlassHero } from "@/components/hero";
 import { ReelList } from "@/components/reel-row";
 import { TopBar } from "@/components/top-bar";
 import { TopicChips } from "@/components/topic-chips";
-import { ButtonLink, Container, SectionTitle } from "@/components/ui";
+import { ButtonLink, Container } from "@/components/ui";
 import { getAllArticles } from "@/lib/content";
 import { site } from "@/lib/site";
 
-const HOME_LIMIT = 4;
+const HOME_LIMIT = 6;
 
 export default function HomePage() {
   const articles = getAllArticles();
@@ -17,37 +18,35 @@ export default function HomePage() {
       <TopBar />
       <main>
         <GlassHero>
-          <h1 className="text-display font-display text-primary">{site.tagline}</h1>
-          <p className="mt-3 text-body text-ink-muted">{site.intro}</p>
+          <h1 className="text-headline font-headline text-primary lg:text-display">{site.tagline}</h1>
+          <p className="mt-3 text-body text-ink">{site.intro}</p>
         </GlassHero>
-        <Container className="max-w-[680px] lg:max-w-[1080px]">
-          <div className="max-w-[680px]">
-            <div className="pb-10" />
-
-            <section aria-labelledby="reel-terbaru">
-              <SectionTitle id="reel-terbaru">Kamu dari reel yang mana?</SectionTitle>
-              {latest.length > 0 ? (
-                <>
-                  <ReelList articles={latest} />
-                  <ButtonLink href="/catatan" variant="secondary" className="mt-4">
+        <Container>
+          <section aria-labelledby="catatan-terbaru" className="max-w-[680px] pt-6">
+            <h2 id="catatan-terbaru" className="text-title font-title text-primary">
+              Catatan terbaru
+            </h2>
+            <div className="mt-3 mb-2">
+              <TopicChips active="semua" />
+            </div>
+            {latest.length > 0 ? (
+              <>
+                <ReelList articles={latest} />
+                {articles.length > HOME_LIMIT && (
+                  <Link href="/catatan" className="mt-3 inline-block text-label font-label text-accent hover:underline">
                     Lihat semua catatan
-                  </ButtonLink>
-                </>
-              ) : (
-                <div className="rounded-lg bg-surface p-6">
-                  <p className="text-body">Catatan pertama sedang ditulis. Sementara itu, tonton reelnya di Instagram.</p>
-                  <ButtonLink href={site.instagram.url} external className="mt-4">
-                    Buka @{site.instagram.handle}
-                  </ButtonLink>
-                </div>
-              )}
-            </section>
-
-            <section aria-labelledby="topik" className="mt-10">
-              <SectionTitle id="topik">Topik</SectionTitle>
-              <TopicChips />
-            </section>
-          </div>
+                  </Link>
+                )}
+              </>
+            ) : (
+              <div className="mt-4 rounded-2xl bg-surface p-6">
+                <p className="text-body">Catatan pertama sedang ditulis. Sementara itu, tonton reelnya di Instagram.</p>
+                <ButtonLink href={site.instagram.url} external className="mt-4">
+                  Buka @{site.instagram.handle}
+                </ButtonLink>
+              </div>
+            )}
+          </section>
         </Container>
       </main>
     </>

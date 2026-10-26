@@ -1,19 +1,22 @@
 import Link from "next/link";
-import { topics } from "@/lib/site";
+import { topics, type TopicSlug } from "@/lib/site";
 
-export function TopicChips({ active }: { active?: string }) {
+const chipCls = "inline-flex h-8 items-center rounded-full px-3.5 text-label font-label";
+
+export function TopicChips({ active = "semua" }: { active?: "semua" | TopicSlug }) {
+  const items = [{ slug: "semua" as const, name: "Semua", href: "/catatan" }].concat(
+    topics.map((t) => ({ slug: t.slug as "semua", name: t.name, href: `/topik/${t.slug}` })),
+  );
   return (
     <ul className="flex flex-wrap gap-2">
-      {topics.map((t) => {
+      {items.map((t) => {
         const isActive = t.slug === active;
         return (
           <li key={t.slug}>
             <Link
-              href={`/topik/${t.slug}`}
+              href={t.href}
               aria-current={isActive ? "page" : undefined}
-              className={`inline-flex h-9 items-center rounded-full px-4 text-label font-label ${
-                isActive ? "bg-ink text-paper" : "bg-surface text-ink hover:bg-line"
-              }`}
+              className={`${chipCls} ${isActive ? "bg-primary text-on-primary" : "bg-primary-soft text-ink hover:bg-line"}`}
             >
               {t.name}
             </Link>
