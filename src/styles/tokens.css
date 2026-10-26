@@ -1,15 +1,19 @@
 @theme {
-  --color-primary: #1f3faf;
-  --color-primary-strong: #18328c;
-  --color-primary-soft: #e8edfb;
+  --color-primary: #0e314d;
+  --color-primary-strong: #0a2539;
+  --color-primary-soft: #e3f1f5;
+  --color-accent: #2f6b8d;
+  --color-brand-teal: #3b87a6;
+  --color-brand-cyan: #addfe5;
   --color-on-primary: #ffffff;
-  --color-ink: #1b2430;
-  --color-ink-muted: #5a6472;
+  --color-on-dark: #cfe3ea;
+  --color-ink: #14283a;
+  --color-ink-muted: #5b6b78;
   --color-paper: #ffffff;
-  --color-surface: #f2f4f6;
-  --color-line: #dce1e7;
+  --color-surface: #f1f7f9;
+  --color-line: #e3ebf0;
   --color-highlight: #ffe066;
-  --color-on-highlight: #1b2430;
+  --color-on-highlight: #14283a;
   --color-correction: #a8261c;
   --color-correction-surface: #fcedeb;
   --font-display: "Plus Jakarta Sans";

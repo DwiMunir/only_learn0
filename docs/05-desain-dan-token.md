@@ -39,7 +39,8 @@ Ada di `src/app/globals.css`:
 | correction-note | `src/components/research.tsx` (`CorrectionNote`) |
 | topic-chip | `src/components/topic-chips.tsx` |
 | button-primary, button-secondary | `src/components/ui.tsx` (`ButtonLink`) |
-| lead-magnet | `src/components/lead-magnet.tsx` |
+| glass-hero | `src/components/hero.tsx` |
+| footer | `src/components/footer.tsx` |
 
 ## Memakai hasil Stitch
 

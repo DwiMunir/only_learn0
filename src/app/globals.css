@@ -100,7 +100,7 @@
   font-weight: 700;
 }
 .prose-artikel a {
-  color: var(--color-primary);
+  color: var(--color-accent);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -125,15 +125,15 @@ mark.klaim {
   padding: 0 5px;
   margin-left: 3px;
   border-radius: 999px;
-  background: var(--color-primary-soft);
-  color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
   font: 700 0.75rem/1 var(--font-sans);
   vertical-align: 0.15em;
   cursor: pointer;
   border: 0;
 }
 .fn:hover {
-  background: var(--color-primary);
+  background: var(--color-accent);
   color: var(--color-on-primary);
 }
 
@@ -168,10 +168,10 @@ dialog.sheet {
   border-radius: 16px 16px 0 0;
   background: var(--color-paper);
   color: var(--color-ink);
-  box-shadow: 0 -8px 24px rgba(27, 36, 48, 0.12);
+  box-shadow: 0 -8px 24px rgba(14, 49, 77, 0.12);
 }
 dialog.sheet::backdrop {
-  background: rgb(27 36 48 / 0.4);
+  background: rgb(20 40 58 / 0.4);
 }
 @media (prefers-reduced-motion: no-preference) {
   dialog.sheet[open] {
@@ -193,4 +193,18 @@ dialog.sheet::backdrop {
 .flash {
   background: var(--color-primary-soft);
   transition: background 1.2s ease-out;
+}
+
+/* ---------- Kartu kaca (hero) ---------- */
+.glass {
+  background: rgba(255, 255, 255, 0.55);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 24px rgba(14, 49, 77, 0.08);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .glass {
+    background: rgba(255, 255, 255, 0.85);
+  }
 }

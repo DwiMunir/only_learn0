@@ -32,7 +32,7 @@ Situs ini statis penuh: semua halaman di-render saat build, tanpa database atau 
 
 Paket Hobby (gratis) hanya untuk penggunaan **non-komersial**. Menurut fair use guidelines Vercel, yang termasuk komersial antara lain menjual produk atau jasa, menerima pembayaran dari pengunjung, memasang iklan seperti AdSense, atau situs yang tujuan utamanya link affiliate. Meminta donasi tidak termasuk komersial.
 
-Selama blog ini hanya berisi catatan riset dan lead magnet gratis, Hobby masih aman. Begitu kamu mulai menjual kit, memasang iklan, atau menjadikan affiliate sebagai tujuan utama, pindah ke paket Pro atau ke hosting lain. Cek ketentuan terbarunya di https://vercel.com/docs/limits/fair-use-guidelines.
+Selama blog ini hanya berisi catatan riset gratis, Hobby masih aman. Begitu kamu mulai menjual kit, memasang iklan, atau menjadikan affiliate sebagai tujuan utama, pindah ke paket Pro atau ke hosting lain. Cek ketentuan terbarunya di https://vercel.com/docs/limits/fair-use-guidelines.
 
 Karena situsnya statis, pindah hosting relatif mudah. Satu hal yang perlu disesuaikan: redirect `/c/<slug>` di `next.config.ts` harus dipindah ke aturan redirect milik hosting baru.
 

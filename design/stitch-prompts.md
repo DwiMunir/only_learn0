@@ -64,8 +64,6 @@ Below the list, a full-width secondary button (white, blue text, 1px grey border
 
 Section title "Topik", then three pill chips in one row on a light grey surface: "Uang", "Karier", "Psikologi sehari-hari".
 
-Lead magnet block on the light grey surface with 16px corners and 24px padding: title "Kit jawaban interview HRD", body "Contoh jawaban untuk pertanyaan HRD yang paling sering muncul, plus cara menyesuaikannya dengan pengalamanmu.", and a full-width primary blue button "Ambil kit gratis".
-
 Footer in small muted text: links "Cara aku riset" and "Tentang", then "© 2026 Only Learn".
 
 Do not use yellow anywhere on this screen. Yellow is reserved for research claims inside articles.
@@ -233,7 +231,7 @@ Pakai yang relevan saja, kalau hasil Stitch meleset.
 - [ ] Meteran bukti selalu disertai label teks, tidak hanya warna.
 - [ ] Tidak ada gradient, ilustrasi stok, emoji, label huruf kapital, atau kartu berbayang.
 - [ ] Teks rata kiri dan tetap terbaca di lebar 360px.
-- [ ] Tombol memakai kata kerja yang jelas: "Buka sumber asli", "Ambil kit gratis", "Follow @only_learn0".
+- [ ] Tombol memakai kata kerja yang jelas: "Buka sumber asli", "Follow @only_learn0".
 - [ ] Semua teks UI dalam Bahasa Indonesia, sesuai teks di prompt.
 - [ ] Merah hanya dipakai untuk catatan koreksi.
 

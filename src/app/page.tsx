@@ -1,4 +1,3 @@
-import { LeadMagnet } from "@/components/lead-magnet";
 import { ReelList } from "@/components/reel-row";
 import { TopBar } from "@/components/top-bar";
 import { TopicChips } from "@/components/topic-chips";
@@ -46,10 +45,6 @@ export default function HomePage() {
               <SectionTitle id="topik">Topik</SectionTitle>
               <TopicChips />
             </section>
-
-            <div className="mt-10">
-              <LeadMagnet />
-            </div>
           </div>
         </Container>
       </main>

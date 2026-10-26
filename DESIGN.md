@@ -3,17 +3,21 @@ version: alpha
 name: Only Learn
 description: Research notes behind every @only_learn0 Instagram reel. A mobile-first reading site for Indonesian readers in their twenties, where every research claim is highlighted and tied to a numbered source.
 colors:
-  primary: "#1F3FAF"
-  primary-strong: "#18328C"
-  primary-soft: "#E8EDFB"
+  primary: "#0E314D"
+  primary-strong: "#0A2539"
+  primary-soft: "#E3F1F5"
+  accent: "#2F6B8D"
+  brand-teal: "#3B87A6"
+  brand-cyan: "#ADDFE5"
   on-primary: "#FFFFFF"
-  ink: "#1B2430"
-  ink-muted: "#5A6472"
+  on-dark: "#CFE3EA"
+  ink: "#14283A"
+  ink-muted: "#5B6B78"
   paper: "#FFFFFF"
-  surface: "#F2F4F6"
-  line: "#DCE1E7"
+  surface: "#F1F7F9"
+  line: "#E3EBF0"
   highlight: "#FFE066"
-  on-highlight: "#1B2430"
+  on-highlight: "#14283A"
   correction: "#A8261C"
   correction-surface: "#FCEDEB"
 typography:
@@ -107,13 +111,13 @@ components:
     textColor: "{colors.on-highlight}"
     typography: "{typography.body-article}"
   footnote-marker:
-    backgroundColor: "{colors.primary-soft}"
-    textColor: "{colors.primary}"
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-primary}"
     typography: "{typography.footnote}"
     rounded: "{rounded.full}"
     size: 20px
   evidence-meter-filled:
-    backgroundColor: "{colors.primary}"
+    backgroundColor: "{colors.brand-teal}"
     rounded: "{rounded.full}"
     width: 14px
     height: 6px
@@ -144,21 +148,26 @@ components:
     typography: "{typography.item-title}"
     padding: 12px
   topic-chip:
-    backgroundColor: "{colors.surface}"
+    backgroundColor: "{colors.primary-soft}"
     textColor: "{colors.ink}"
     typography: "{typography.label}"
     rounded: "{rounded.full}"
     padding: 8px
     height: 36px
   topic-chip-active:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.paper}"
-  lead-magnet:
-    backgroundColor: "{colors.surface}"
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-primary}"
+  glass-hero:
+    backgroundColor: "{colors.paper}"
     textColor: "{colors.ink}"
-    typography: "{typography.body}"
+    typography: "{typography.display}"
     rounded: "{rounded.lg}"
     padding: 24px
+  footer:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-dark}"
+    typography: "{typography.caption}"
+    padding: 40px
   correction-note:
     backgroundColor: "{colors.correction-surface}"
     textColor: "{colors.correction}"
@@ -169,23 +178,29 @@ components:
 
 ## Overview
 
-Document version 1.0, 25 October 2026.
+Document version 2.0, 26 October 2026.
 
 Only Learn is the research companion of the Instagram account @only_learn0. Each viral reel (money, careers, everyday psychology for Indonesians in their twenties) gets one page of notes that shows where every claim comes from. Most visitors arrive from the Instagram bio link on a phone, seconds after watching a reel. The site has two jobs: get them to the notes for that reel in one tap, and make the research visibly real.
 
-The visual idea comes from a student's study notes: black ink on white paper, a blue ballpoint pen for links and actions, a yellow highlighter on the sentences that matter, and a red pen for corrections. The boldness is spent in one place only: the yellow highlighter marks research claims inside article text. Everything around it stays quiet, flat and disciplined.
+The visual idea is a clean research lab drawn from the logo: deep navy for action and structure, a teal and cyan family for the brand mark and the evidence meter, white paper for reading, and a frosted glass hero at the top of every page. The yellow highlighter on research claims inside article text stays the single loudest mark on the page. Everything else stays calm and flat; the only soft depth is the glass card in the hero.
 
-Voice: Bahasa Indonesia, casual and direct. The reader is "kamu", the author is "aku". Plain verbs, sentence case, no filler. Button text says exactly what happens ("Buka sumber asli", "Ambil kit gratis").
+Voice: Bahasa Indonesia, casual and direct. The reader is "kamu", the author is "aku". Plain verbs, sentence case, no filler. Button text says exactly what happens ("Buka sumber asli", "Follow @only_learn0").
 
 ## Colors
 
-- **Ink (#1B2430):** all primary text and headings. A blue-black like pen ink, never pure black.
-- **Ink muted (#5A6472):** meta lines, dates, source counts, helper text.
+Palette taken from the logo.
+
+- **Ink (#14283A):** all primary text and headings. A deep blue-black, never pure black.
+- **Ink muted (#5B6B78):** meta lines, dates, source counts, helper text.
 - **Paper (#FFFFFF):** page background.
-- **Surface (#F2F4F6):** source cards, the lead-magnet block, inactive chips.
-- **Line (#DCE1E7):** 1px dividers between list rows and the empty segments of the evidence meter.
-- **Primary, ballpoint blue (#1F3FAF):** links, primary buttons, footnote numbers, filled segments of the evidence meter. Hover uses primary-strong (#18328C).
-- **Primary soft (#E8EDFB):** footnote marker circles and secondary button hover.
+- **Surface (#F1F7F9):** source cards and neutral blocks.
+- **Line (#E3EBF0):** 1px dividers between list rows and the empty segments of the evidence meter.
+- **Primary, navy (#0E314D):** primary buttons, footnote markers (white number on navy), the active topic chip, the footer. Hover uses primary-strong (#0A2539).
+- **Primary soft (#E3F1F5):** inactive topic chips, the secondary button hover, the source-jump flash.
+- **Accent (#2F6B8D):** links and small accent text such as "Follow" and "Buka sumber asli".
+- **Brand teal (#3B87A6):** only the "learn" half of the wordmark and the filled segments of the evidence meter. Never small text: its contrast on white is about 4.0:1.
+- **Brand cyan (#ADDFE5):** the decorative circles in the hero and the end of the poster fallback gradient.
+- **On dark (#CFE3EA):** secondary text on the navy footer.
 - **Highlight, yellow highlighter (#FFE066):** only behind research claims in article text. Never on buttons, headings, backgrounds, icons or decoration.
 - **Correction, red pen (#A8261C on #FCEDEB):** only for correction notes and the correction log.
 
@@ -207,26 +222,28 @@ Voice: Bahasa Indonesia, casual and direct. The reader is "kamu", the author is 
 
 ## Elevation & Depth
 
-Flat by default. No shadows on rows, cards, chips or buttons. Only two things lift off the page:
-- The source bottom sheet: shadow 0 -8px 24px rgba(27, 36, 48, 0.12), over a 40% ink overlay.
-- The sticky top bar gains a 1px line divider at its bottom edge once the page scrolls.
+Flat by default. No shadows on rows, cards, chips or buttons. Gradients appear only in the hero background (#E3F3F6 to #F5FAFB with two decorative circles) and in the poster fallback (brand cyan to brand teal). Only two things lift off the page:
+- The hero glass card: 0 8px 24px rgba(14, 49, 77, 0.08), white at 55% with a 14px backdrop blur.
+- The source bottom sheet: shadow 0 -8px 24px rgba(14, 49, 77, 0.12), over a 40% ink overlay.
+
+The sticky top bar gains a 1px line divider at its bottom edge once the page scrolls.
 
 ## Shapes
 
 - 4px corners on reel thumbnails.
 - 8px corners on buttons, source cards, correction notes and the reel embed.
-- 16px corners on the bottom sheet (top corners only) and the lead-magnet block.
+- 16px corners on the bottom sheet (top corners only) and the glass hero card; the hero block itself is rounded more generously.
 - Full pills for topic chips, footnote markers and evidence meter segments.
 - The highlighter is a marker stroke, not a box: it covers the lower 70% of the text line height with 2px of horizontal overhang, so it looks drawn over the text.
 
 ## Components
 
-- **Top bar:** 56px, white. Wordmark "only learn" in lowercase Plus Jakarta Sans ExtraBold on the left; a text button "Follow" in primary blue on the right linking to Instagram. Inner pages show a back chevron with "Semua catatan" instead of the wordmark.
+- **Top bar:** 56px, white. The logo mark and the wordmark on the left ("only" in navy, "learn" in brand teal, lowercase Plus Jakarta Sans ExtraBold); a text button "Follow" in accent on the right linking to Instagram. Inner pages show a back chevron with "Semua catatan" instead of the wordmark.
 - **Reel row:** 48x64px vertical video thumbnail on the left; on the right the reel hook as the title (max two lines) and a meta line in ink muted with the topic, then a small document icon and the source count ("4 sumber"). The source count is required on every row; it is the first trust signal.
-- **Claim highlight + footnote marker:** a research claim in article text sits on the yellow marker stroke, followed directly by a footnote marker (blue number in a pale blue circle). Every highlight has a marker; every marker matches a numbered source in the "Sumber" list.
+- **Claim highlight + footnote marker:** a research claim in article text sits on the yellow marker stroke, followed directly by a footnote marker (white number in a navy circle). Every highlight has a marker; every marker matches a numbered source in the "Sumber" list.
 - **Source bottom sheet (mobile):** opens when a footnote marker is tapped. Shows "Sumber 1 dari 4", the source title, author or publisher and year, the evidence meter with its label and one helper line, a "Yang didukung sumber ini" sentence, the primary button "Buka sumber asli", and "Dicek" with the check date. The highlighted claim stays visible above the sheet.
 - **Sidenote (desktop):** the same content as the sheet, condensed, placed in the right margin next to its claim.
-- **Evidence meter:** four 14x6px pill segments; filled segments in primary blue, empty in line grey, followed by a text label. Never rely on color alone: the label is always shown.
+- **Evidence meter:** four 14x6px pill segments; filled segments in brand teal, empty in line grey, followed by a text label. Never rely on color alone: the label is always shown.
 
 | Level | Filled | Label | Use for |
 |---|---|---|---|
@@ -237,21 +254,25 @@ Flat by default. No shadows on rows, cards, chips or buttons. Only two things li
 
   Laws and regulations (for example PP 35/2021) use an outlined tag "Aturan resmi" instead of the meter.
 - **Claim block ("Apa kata riset" section):** the claim sentence, the evidence meter with label below it, then a muted source line. Blocks are separated by line dividers.
-- **Source list ("Sumber" section):** numbered to match the footnotes. Each item: title, author or publisher and year, a primary link "Buka sumber asli", and "Dicek 25 Okt 2026" in ink muted.
-- **Topic chip:** pill, surface background, ink text; active chip is ink background with white text. Topics: "Uang", "Karier", "Psikologi sehari-hari".
-- **Buttons:** primary is ballpoint blue with white text; secondary is white with blue text and a 1px line border. 48px tall, full width on mobile. No arrows or icons appended to button text.
-- **Lead magnet:** surface block with a title, one sentence, and a primary button (for example "Kit jawaban interview HRD" with "Ambil kit gratis").
+- **Source list ("Sumber" section):** numbered to match the footnotes. Each item: title, author or publisher and year, an accent link "Buka sumber asli", and "Dicek 25 Okt 2026" in ink muted.
+- **Topic chip:** pill, primary-soft background, ink text; active chip is navy (primary) background with white text. Topics: "Uang", "Karier", "Psikologi sehari-hari".
+- **Buttons:** primary is navy with white text; secondary is white with navy text and a 1px line border. 48px tall, full width on mobile. No arrows or icons appended to button text.
+- **Glass hero:** every page opens with a hero: a rounded block on a pale teal gradient (#E3F3F6 to #F5FAFB) with two static decorative circles in brand cyan, holding one frosted glass card (white at 55% opacity, 14px backdrop blur, 1px white border). The card holds the topic chip, the title and the meta line. It falls back to 85% white where backdrop blur is unsupported.
+- **Footer:** navy (primary) block with the full logo on a white badge, the tagline and links in on-dark, and the copyright line. No newsletter or lead-magnet block.
 - **Correction note:** red-pen text on the light red surface, with the correction date on its own line. Shown only when a correction exists; otherwise the article ends with one muted line inviting corrections by DM.
 
 ## Do's and Don'ts
 
 - Do keep yellow exclusively for highlighted research claims.
+- Do keep brand teal to the "learn" wordmark and the filled meter segments; use accent for links and small text.
 - Do pair every highlight with a footnote number, and every footnote with an entry in the source list.
 - Do show the source count on every list row and the "Dicek" date on every article.
 - Do use real copy in Bahasa Indonesia; reel hooks are used verbatim as titles.
 - Do keep text left aligned and readable at 360px width.
-- Don't use gradients, glow, stock illustrations, emoji or decorative icons.
+- Don't use gradients outside the hero background and the poster fallback, and no glow, stock illustrations, emoji or decorative icons.
+- Don't put shadows anywhere except the hero glass card and the source sheet.
 - Don't use uppercase labels, eyebrow text above headings, or a single accented word in a headline.
 - Don't wrap list items in shadowed cards.
 - Don't join meta items with middle dots; space them as separate items.
 - Don't use red for anything except corrections.
+- Don't add a lead magnet or free-kit block anywhere.

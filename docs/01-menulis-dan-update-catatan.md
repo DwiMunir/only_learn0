@@ -201,7 +201,7 @@ Tanpa poster pun situs tetap jalan: thumbnail diganti blok gelap dengan ikon pla
 
 | Yang mau diubah | File |
 |---|---|
-| Tagline, intro, handle Instagram, lead magnet | `src/lib/site.ts` |
+| Tagline, intro, handle Instagram | `src/lib/site.ts` |
 | Daftar topik dan deskripsinya | `src/lib/site.ts` (topik baru otomatis punya halaman `/topik/<slug>`) |
 | Label dan penjelasan level bukti | `src/lib/evidence.ts` |
 | Halaman Tentang | `content/halaman/tentang.mdx` |
