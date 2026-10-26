@@ -81,6 +81,14 @@ function listArticleFiles(): string[] {
     .map((f) => path.join(CONTENT_DIR, f));
 }
 
+/**
+ * Urutan publishedAt, terbaru dulu. Perbandingan teks biasa: "2026-10-26T06:13" > "2026-10-26T05:35" > "2026-10-26",
+ * jadi tanggal tanpa jam dianggap paling awal di harinya.
+ */
+export function terbaruDulu(a: string, b: string): number {
+  return a < b ? 1 : a > b ? -1 : 0;
+}
+
 let cache: Article[] | null = null;
 
 /** Semua artikel, terbaru dulu. Draft hanya ikut kalau showDrafts() = true. */
@@ -89,7 +97,7 @@ export function getAllArticles(opts: { includeDrafts?: boolean } = {}): Article[
   if (!cache || process.env.NODE_ENV === "development") {
     cache = listArticleFiles()
       .map(parseArticleFile)
-      .sort((a, b) => b.frontmatter.publishedAt.localeCompare(a.frontmatter.publishedAt));
+      .sort((a, b) => terbaruDulu(a.frontmatter.publishedAt, b.frontmatter.publishedAt));
   }
   return cache.filter((a) => includeDrafts || !a.frontmatter.draft);
 }
@@ -232,7 +240,7 @@ export function validateArticle(article: Article): Finding[] {
     warn("Ada claims di frontmatter, tapi <ApaKataRiset /> belum dipasang di teks.");
   }
 
-  if (fm.checkedAt < fm.publishedAt) {
+  if (fm.checkedAt < fm.publishedAt.slice(0, 10)) {
     warn("checkedAt lebih lama dari publishedAt. Biasanya tanggal cek sama atau setelah tanggal terbit.");
   }
 

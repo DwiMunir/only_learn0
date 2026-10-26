@@ -9,7 +9,7 @@ Semua aturan di bawah dicek oleh `npm run cek` dan saat build. Sumber kebenarann
 | `title` | ya | teks | Hook reel, apa adanya. Jadi judul halaman. |
 | `description` | ya | teks, maks 200 | Untuk Google dan preview link di WhatsApp atau DM. |
 | `topic` | ya | `uang` \| `karier` \| `psikologi-sehari-hari` | Daftar topik ada di `src/lib/site.ts`. |
-| `publishedAt` | ya | `YYYY-MM-DD` | Tanggal terbit. Menentukan urutan di daftar. |
+| `publishedAt` | ya | `YYYY-MM-DD` atau `YYYY-MM-DDTHH:mm` (UTC) | Waktu terbit. Menentukan urutan di daftar (terbaru dulu). Publish dari Morena mengisi jamnya otomatis supaya artikel di hari yang sama tetap urut. Yang tampil di situs hanya tanggalnya. |
 | `checkedAt` | ya | `YYYY-MM-DD` | Tanggal terakhir semua sumber dicek. Tampil sebagai "Dicek ...". |
 | `draft` | tidak | `true` \| `false` | Default `false`. Draft tidak tampil di produksi. |
 | `reel.url` | tidak | link reel Instagram; opsional, diisi `npm run reel` atau Morena | Contoh `https://www.instagram.com/reel/De5eo3WFZqJ/` |

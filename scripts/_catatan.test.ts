@@ -29,3 +29,9 @@ test("ApaKataRiset ditambahkan kalau ada claims", () => {
   assert.match(a.body, /<ApaKataRiset \/>$/);
   assert.equal(a.apaKataRisetDitambah, true);
 });
+
+test("artikel baru memakai waktu terbit lengkap, timpa tetap memakai yang lama", () => {
+  assert.equal(catatanDariNote(note, { hariIni: "2026-11-01", waktu: "2026-11-01T05:35", terbit: true }).frontmatter.publishedAt, "2026-11-01T05:35");
+  const lama = { publishedAt: "2026-10-25T03:00", corrections: [] };
+  assert.equal(catatanDariNote(note, { hariIni: "2026-11-01", waktu: "2026-11-01T05:35", terbit: true, lama }).frontmatter.publishedAt, "2026-10-25T03:00");
+});

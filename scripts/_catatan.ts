@@ -8,7 +8,7 @@ type Lama = { publishedAt: string; corrections: { date: string; text: string }[]
  */
 export function catatanDariNote(
   note: ResearchNote,
-  o: { hariIni: string; terbit: boolean; lama?: Lama; koreksi?: string },
+  o: { hariIni: string; waktu?: string; terbit: boolean; lama?: Lama; koreksi?: string },
 ): { frontmatter: Record<string, unknown>; body: string; apaKataRisetDitambah: boolean } {
   let body = note.body.trim();
   let apaKataRisetDitambah = false;
@@ -24,7 +24,7 @@ export function catatanDariNote(
     title: note.hook,
     description: note.description,
     topic: note.topic,
-    publishedAt: o.lama?.publishedAt ?? o.hariIni,
+    publishedAt: o.lama?.publishedAt ?? o.waktu ?? o.hariIni,
     checkedAt: note.checkedAt ?? o.hariIni,
     draft: !o.terbit,
     ...(note.reel ? { reel: note.reel } : {}),

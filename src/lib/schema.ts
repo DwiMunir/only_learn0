@@ -18,6 +18,19 @@ const fmDate = z.preprocess(
   isoDate,
 );
 
+/**
+ * Waktu terbit: tanggal saja, atau tanggal + jam UTC (YYYY-MM-DDTHH:mm). Jam dipakai untuk mengurutkan artikel yang
+ * terbit di hari yang sama. Yang tampil di situs tetap tanggalnya saja.
+ */
+const isoWaktu = z
+  .string()
+  .regex(/^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2})?$/, "Format harus YYYY-MM-DD atau YYYY-MM-DDTHH:mm (UTC), misalnya 2026-10-25T05:35");
+const fmWaktu = z.preprocess((v) => {
+  if (!(v instanceof Date)) return v;
+  const iso = v.toISOString();
+  return iso.slice(11, 16) === "00:00" ? iso.slice(0, 10) : iso.slice(0, 16);
+}, isoWaktu);
+
 export const slugSchema = z
   .string()
   .regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, "Slug hanya huruf kecil, angka, dan tanda hubung");
@@ -50,7 +63,7 @@ export const frontmatterSchema = z.object({
   title: z.string().min(1).describe("Sama dengan hook reel"),
   description: z.string().min(1).max(200).describe("Untuk Google dan preview link"),
   topic: z.enum(topicSlugs),
-  publishedAt: fmDate,
+  publishedAt: fmWaktu,
   checkedAt: fmDate,
   draft: z.boolean().default(false),
   reel: z

@@ -11,7 +11,7 @@ import os from "node:os";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { CONTENT_DIR, parseArticleFile, validateArticle } from "../src/lib/content";
-import { today } from "../src/lib/format";
+import { sekarang, today } from "../src/lib/format";
 import { formatZodError, researchNoteSchema } from "../src/lib/schema";
 import { catatanDariNote } from "./_catatan";
 import { color, fail, printReports, toMdx } from "./_util";
@@ -63,6 +63,7 @@ if (sudahAda && values.timpa) {
 
 const hasil = catatanDariNote(note, {
   hariIni: today(),
+  waktu: sekarang(),
   terbit: values.terbit,
   lama,
   koreksi: values.koreksi,
