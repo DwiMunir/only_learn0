@@ -42,7 +42,7 @@ Content flow and schema stay untouched.
   - The evidence meter always shows its text label.
 - **Brand assets** (already created in the worktree, untracked; the first task commits them):
   - `public/brand/ol-mark.png`: monogram, 164×96, transparent.
-  - `public/brand/ol-logo.png`: full logo, 600×600, transparent.
+  - `design/brand/ol-logo.png` (sumber, tidak disajikan): full logo, 600×600, transparent.
   - `src/app/icon.png` (512×512) and `src/app/apple-icon.png` (180×180).
   - `public/reels/sunday-scaries.jpg`: a 360×640 poster.
 - **Visual reference** (approved mockups) is in `/Users/babylast/projects/only-learn/.superpowers/brainstorm/98404-1792989462/content/`:
@@ -88,7 +88,7 @@ Content flow and schema stay untouched.
 - Modify: `src/lib/site.ts` (remove `leadMagnet`), `src/app/page.tsx` (remove the `LeadMagnet` import and usage only; the full redesign of this page is Task 3)
 - Modify: `docs/05-desain-dan-token.md`: remove the lead-magnet row from the component table, and add rows for `glass-hero` → `src/components/hero.tsx` and `footer` → `src/components/footer.tsx`.
 - Modify: `design/stitch-prompts.md`: drop the lead-magnet mention.
-- Add (already on disk): `public/brand/ol-mark.png`, `public/brand/ol-logo.png`, `src/app/icon.png`, `src/app/apple-icon.png`
+- Add (already on disk): `public/brand/ol-mark.png`, `design/brand/ol-logo.png` (sumber, tidak disajikan), `src/app/icon.png`, `src/app/apple-icon.png`
 
 **Interfaces:**
 - Produces these Tailwind token classes, used by later tasks: `bg-primary`, `bg-primary-soft`, `text-accent`, `text-brand-teal`, `bg-brand-teal`, `bg-brand-cyan`, `text-on-dark`, `bg-surface`, `border-line`, `text-ink-muted`.

@@ -7,7 +7,7 @@ import { DocIcon } from "./icons";
 export function ReelThumb({ poster, className = "" }: { poster?: string; className?: string }) {
   if (poster) {
     // eslint-disable-next-line @next/next/no-img-element
-    return <img src={poster} alt="" className={`shrink-0 rounded-xl object-cover ${className}`} />;
+    return <img src={poster} alt="" width={108} height={152} loading="lazy" decoding="async" className={`shrink-0 rounded-xl object-cover ${className}`} />;
   }
   // Cadangan bila reel belum punya poster: gradasi merek dengan monogram putih
   return (

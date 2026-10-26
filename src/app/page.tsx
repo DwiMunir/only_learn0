@@ -27,7 +27,7 @@ export default function HomePage() {
               Catatan terbaru
             </h2>
             <div className="mt-3 mb-2">
-              <TopicChips active="semua" />
+              <TopicChips active="semua" ariaCurrent={false} />
             </div>
             {latest.length > 0 ? (
               <>

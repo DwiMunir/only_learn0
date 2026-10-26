@@ -193,7 +193,7 @@ Koreksi tampil di bawah artikel dengan warna merah, dan otomatis terkumpul di ha
    npm run reel -- keliatan-bokek https://www.instagram.com/reel/De3-ajlCIXL/ --poster /reels/keliatan-bokek.jpg
    ```
 
-Tanpa poster pun situs tetap jalan: thumbnail diganti blok gelap dengan ikon play.
+Tanpa poster pun situs tetap jalan: thumbnail diganti kotak gradasi cyan-teal dengan monogram OL.
 
 ---
 

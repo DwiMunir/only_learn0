@@ -71,7 +71,7 @@ export function ApaKataRiset({ claims, sources }: { claims: Claim[]; sources: Nu
   if (claims.length === 0) return null;
   return (
     <section aria-labelledby="apa-kata-riset" className="my-10">
-      <h2 id="apa-kata-riset" className="mb-2 text-title font-title">
+      <h2 id="apa-kata-riset" className="mb-2 text-title font-title text-primary">
         Apa kata riset
       </h2>
       <ul>
@@ -101,7 +101,7 @@ export function ApaKataRiset({ claims, sources }: { claims: Claim[]; sources: Nu
 export function SourceList({ sources }: { sources: NumberedSource[] }) {
   return (
     <section aria-labelledby="sumber" className="mt-12">
-      <h2 id="sumber" className="mb-2 text-title font-title">
+      <h2 id="sumber" className="mb-2 text-title font-title text-primary">
         Sumber
       </h2>
       <ol>

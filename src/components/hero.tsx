@@ -12,7 +12,7 @@ export function GlassHero({ children }: { children: ReactNode }) {
         aria-hidden="true"
         className="absolute -bottom-16 -right-10 h-[150px] w-[150px] rounded-full bg-brand-teal opacity-55 lg:h-[240px] lg:w-[240px]"
       />
-      <div className="glass relative rounded-[18px] p-4 lg:max-w-[680px] lg:p-8">{children}</div>
+      <div className="glass relative break-words rounded-[18px] p-4 lg:max-w-[680px] lg:p-8">{children}</div>
     </section>
   );
 }

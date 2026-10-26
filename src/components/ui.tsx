@@ -31,7 +31,7 @@ export function ButtonLink({ href, children, variant = "primary", external, clas
 
 export function SectionTitle({ children, id }: { children: ReactNode; id?: string }) {
   return (
-    <h2 id={id} className="mb-3 text-title font-title">
+    <h2 id={id} className="mb-3 text-title font-title text-primary">
       {children}
     </h2>
   );
@@ -44,10 +44,10 @@ export function Container({ children, className = "" }: { children: ReactNode; c
 /** Logo: monogram + "Only Learn". Teks "Learn" memakai brand-teal (hanya untuk wordmark). */
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
-    <span aria-label="Only Learn" className={`inline-flex items-center gap-2 ${className}`}>
+    <span className={`inline-flex items-center gap-2 ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/brand/ol-mark.png" alt="" width={38} height={22} />
-      <span aria-hidden="true" className="text-[16px] font-extrabold tracking-[-0.01em]">
+      <span className="text-[16px] font-extrabold tracking-[-0.01em]">
         <span className="text-primary">Only</span> <span className="text-brand-teal">Learn</span>
       </span>
     </span>

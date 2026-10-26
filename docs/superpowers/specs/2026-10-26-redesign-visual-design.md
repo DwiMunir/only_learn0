@@ -80,7 +80,7 @@ Font tetap: Plus Jakarta Sans untuk antarmuka dan Literata untuk isi artikel.
    - ikon tab: `src/app/icon.png`;
    - ikon iOS: `src/app/apple-icon.png`;
    - monogram: `public/brand/ol-mark.png`;
-   - logo lengkap: `public/brand/ol-logo.png`.
+   - logo lengkap: `design/brand/ol-logo.png` (sumber, tidak disajikan).
 6. **Gambar preview link (OG):** latar putih, monogram dan wordmark di kiri atas, judul dengan stabilo, lalu baris topik, jumlah sumber dan @handle dalam warna baru.
 7. **Label huruf kapital di atas judul** (seperti "CATATAN RISET" di mockup) **dihilangkan.** Aturan suara di DESIGN.md (sentence case, tanpa eyebrow) tetap berlaku, jadi hero cukup berisi judul dan pengantar.
 8. **Meta tetap dipisah spasi**, tidak memakai titik tengah, sesuai aturan yang ada.

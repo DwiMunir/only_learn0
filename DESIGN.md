@@ -16,6 +16,7 @@ colors:
   paper: "#FFFFFF"
   surface: "#F1F7F9"
   line: "#E3EBF0"
+  meter-empty: "#C3D6DE"
   highlight: "#FFE066"
   on-highlight: "#14283A"
   correction: "#A8261C"
@@ -122,7 +123,7 @@ components:
     width: 14px
     height: 6px
   evidence-meter-empty:
-    backgroundColor: "{colors.line}"
+    backgroundColor: "{colors.meter-empty}"
     rounded: "{rounded.full}"
     width: 14px
     height: 6px
@@ -168,6 +169,16 @@ components:
     textColor: "{colors.on-dark}"
     typography: "{typography.caption}"
     padding: 40px
+  link:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.accent}"
+    typography: "{typography.label}"
+  poster-fallback:
+    backgroundColor: "{colors.brand-cyan}"
+    rounded: "{rounded.lg}"
+  divider:
+    backgroundColor: "{colors.line}"
+    height: 1px
   correction-note:
     backgroundColor: "{colors.correction-surface}"
     textColor: "{colors.correction}"
@@ -194,12 +205,13 @@ Palette taken from the logo.
 - **Ink muted (#5B6B78):** meta lines, dates, source counts, helper text.
 - **Paper (#FFFFFF):** page background.
 - **Surface (#F1F7F9):** source cards and neutral blocks.
-- **Line (#E3EBF0):** 1px dividers between list rows and the empty segments of the evidence meter.
+- **Line (#E3EBF0):** 1px dividers between list rows and borders of pills and boxes.
+- **Meter empty (#C3D6DE):** the empty segments of the evidence meter, darker than line so they stay visible on white.
 - **Primary, navy (#0E314D):** primary buttons, footnote markers (white number on navy), the active topic chip, the footer. Hover uses primary-strong (#0A2539).
 - **Primary soft (#E3F1F5):** inactive topic chips, the secondary button hover, the source-jump flash.
-- **Accent (#2F6B8D):** links and small accent text such as "Follow" and "Buka sumber asli".
-- **Brand teal (#3B87A6):** only the "learn" half of the wordmark and the filled segments of the evidence meter. Never small text: its contrast on white is about 4.0:1.
-- **Brand cyan (#ADDFE5):** the decorative circles in the hero and the end of the poster fallback gradient.
+- **Accent (#2F6B8D):** links and small accent text such as the back link and "Buka sumber asli".
+- **Brand teal (#3B87A6):** never text except the "Learn" wordmark. Besides the wordmark and the meter it appears only as decoration (the hero circle, the poster fallback tile, the OG image). Contrast on white is about 4.0:1.
+- **Brand cyan (#ADDFE5):** the top-left decorative circle in the hero and the start of the poster fallback gradient.
 - **On dark (#CFE3EA):** secondary text on the navy footer.
 - **Highlight, yellow highlighter (#FFE066):** only behind research claims in article text. Never on buttons, headings, backgrounds, icons or decoration.
 - **Correction, red pen (#A8261C on #FCEDEB):** only for correction notes and the correction log.
@@ -218,7 +230,6 @@ Palette taken from the logo.
 - Spacing on a 4px base: 8px inside components, 16px between related items, 40px between sections, 64px before the footer.
 - Lists (reels, articles) are rows separated by 1px line dividers, not cards.
 - Article column max width 680px. On desktop (1024px and up) the container is 1080px: a 680px article column plus a 240px right margin for sidenotes, with a 160px gap. Footnotes become sidenotes aligned with their highlighted claim.
-- The reel embed is 9:16, full column width on mobile and 360px wide on desktop.
 
 ## Elevation & Depth
 
@@ -226,24 +237,25 @@ Flat by default. No shadows on rows, cards, chips or buttons. Gradients appear o
 - The hero glass card: 0 8px 24px rgba(14, 49, 77, 0.08), white at 55% with a 14px backdrop blur.
 - The source bottom sheet: shadow 0 -8px 24px rgba(14, 49, 77, 0.12), over a 40% ink overlay.
 
-The sticky top bar gains a 1px line divider at its bottom edge once the page scrolls.
+The sticky top bar always has a 1px line divider at its bottom edge.
 
 ## Shapes
 
-- 4px corners on reel thumbnails.
-- 8px corners on buttons, source cards, correction notes and the reel embed.
-- 16px corners on the bottom sheet (top corners only) and the glass hero card; the hero block itself is rounded more generously.
-- Full pills for topic chips, footnote markers and evidence meter segments.
+- 12px corners on reel thumbnails.
+- 8px corners on buttons, source cards and correction notes.
+- 22px on the hero block and 18px on the glass card.
+- 16px (`rounded-2xl`) on boxes such as the summary, empty states and the method boxes, and on the bottom sheet (top corners only).
+- Full pills for topic chips, the Follow button, footnote markers and evidence meter segments.
 - The highlighter is a marker stroke, not a box: it covers the lower 70% of the text line height with 2px of horizontal overhang, so it looks drawn over the text.
 
 ## Components
 
-- **Top bar:** 56px, white. The logo mark and the wordmark on the left ("only" in navy, "learn" in brand teal, lowercase Plus Jakarta Sans ExtraBold); a text button "Follow" in accent on the right linking to Instagram. Inner pages show a back chevron with "Semua catatan" instead of the wordmark.
-- **Reel row:** 48x64px vertical video thumbnail on the left; on the right the reel hook as the title (max two lines) and a meta line in ink muted with the topic, then a small document icon and the source count ("4 sumber"). The source count is required on every row; it is the first trust signal.
+- **Top bar:** 56px, white. The logo mark plus "Only Learn" in sentence case on the left ("Only" in primary, "Learn" in brand teal, Plus Jakarta Sans ExtraBold); the wordmark is always shown. On the right a "Follow" pill (`text-primary`, line border) linking to Instagram, or on inner pages a back link in accent.
+- **Reel row:** 54x76px vertical video thumbnail on the left; on the right the reel hook as the title (max two lines) and a meta line in ink muted with the topic, then a small document icon and the source count ("4 sumber"). The source count is required on every row; it is the first trust signal.
 - **Claim highlight + footnote marker:** a research claim in article text sits on the yellow marker stroke, followed directly by a footnote marker (white number in a navy circle). Every highlight has a marker; every marker matches a numbered source in the "Sumber" list.
 - **Source bottom sheet (mobile):** opens when a footnote marker is tapped. Shows "Sumber 1 dari 4", the source title, author or publisher and year, the evidence meter with its label and one helper line, a "Yang didukung sumber ini" sentence, the primary button "Buka sumber asli", and "Dicek" with the check date. The highlighted claim stays visible above the sheet.
 - **Sidenote (desktop):** the same content as the sheet, condensed, placed in the right margin next to its claim.
-- **Evidence meter:** four 14x6px pill segments; filled segments in brand teal, empty in line grey, followed by a text label. Never rely on color alone: the label is always shown.
+- **Evidence meter:** four 14x6px pill segments; filled segments in brand teal, empty in meter-empty grey-blue, followed by a text label. Never rely on color alone: the label is always shown.
 
 | Level | Filled | Label | Use for |
 |---|---|---|---|
@@ -257,14 +269,14 @@ The sticky top bar gains a 1px line divider at its bottom edge once the page scr
 - **Source list ("Sumber" section):** numbered to match the footnotes. Each item: title, author or publisher and year, an accent link "Buka sumber asli", and "Dicek 25 Okt 2026" in ink muted.
 - **Topic chip:** pill, primary-soft background, ink text; active chip is navy (primary) background with white text. Topics: "Uang", "Karier", "Psikologi sehari-hari".
 - **Buttons:** primary is navy with white text; secondary is white with navy text and a 1px line border. 48px tall, full width on mobile. No arrows or icons appended to button text.
-- **Glass hero:** every page opens with a hero: a rounded block on a pale teal gradient (#E3F3F6 to #F5FAFB) with two static decorative circles in brand cyan, holding one frosted glass card (white at 55% opacity, 14px backdrop blur, 1px white border). The card holds the topic chip, the title and the meta line. It falls back to 85% white where backdrop blur is unsupported.
-- **Footer:** navy (primary) block with the full logo on a white badge, the tagline and links in on-dark, and the copyright line. No newsletter or lead-magnet block.
+- **Glass hero:** every page opens with a hero: a rounded block on a pale teal gradient (#E3F3F6 to #F5FAFB) with two static decorative circles (brand cyan at top-left, brand teal at 55% opacity at bottom-right), holding one frosted glass card (white at 55% opacity, 14px backdrop blur, 1px white border). The card holds the topic chip, the title and the meta line. It falls back to 85% white where backdrop blur is unsupported.
+- **Footer:** navy (primary) block with the Wordmark on a white badge, links in paper (white), and the tagline and copyright in on-dark. No newsletter or lead-magnet block.
 - **Correction note:** red-pen text on the light red surface, with the correction date on its own line. Shown only when a correction exists; otherwise the article ends with one muted line inviting corrections by DM.
 
 ## Do's and Don'ts
 
 - Do keep yellow exclusively for highlighted research claims.
-- Do keep brand teal to the "learn" wordmark and the filled meter segments; use accent for links and small text.
+- Do keep brand teal to the "Learn" wordmark and the filled meter segments (plus decoration); use accent for links and small text.
 - Do pair every highlight with a footnote number, and every footnote with an entry in the source list.
 - Do show the source count on every list row and the "Dicek" date on every article.
 - Do use real copy in Bahasa Indonesia; reel hooks are used verbatim as titles.

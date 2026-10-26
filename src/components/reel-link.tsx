@@ -17,8 +17,11 @@ export function ReelLink({ url, poster }: { url?: string; poster?: string }) {
     >
       <span className="relative shrink-0">
         <ReelThumb poster={poster} className="h-[74px] w-[52px]" />
-        <span className="absolute inset-0 grid place-items-center text-white" aria-hidden="true">
-          <PlayIcon className="size-4 drop-shadow" />
+        {/* ikon play di lingkaran navy semi-transparan agar terbaca di atas poster apa pun */}
+        <span className="absolute inset-0 grid place-items-center" aria-hidden="true">
+          <span className="grid size-[22px] place-items-center rounded-full bg-primary/70 text-on-primary">
+            <PlayIcon className="size-3" />
+          </span>
         </span>
       </span>
       <span className="min-w-0">

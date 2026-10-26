@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ReelLink } from "@/components/reel-embed";
+import { ReelLink } from "@/components/reel-link";
 import { ApaKataRiset, CorrectionNote, Klaim, SourceList } from "@/components/research";
 import { SourceDialogProvider, type SheetSource } from "@/components/source-dialog";
 import { GlassHero } from "@/components/hero";
@@ -93,6 +93,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
     <>
       <TopBar back={{ href: "/catatan", label: "Semua catatan" }} />
       <main>
+        <article>
         <GlassHero>
           <div className="flex flex-wrap items-center gap-2">
             {topic && (
@@ -118,7 +119,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
           </p>
         </GlassHero>
         <Container>
-          <article className="max-w-[680px]">
+          <div className="max-w-[680px]">
             {/* "<" di-escape: teks frontmatter tidak boleh bisa menutup tag <script> ini */}
             <script
               type="application/ld+json"
@@ -130,7 +131,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
             </div>
 
             <section aria-labelledby="ringkasan" className="mt-8">
-              <h2 id="ringkasan" className="mb-3 text-title font-title">
+              <h2 id="ringkasan" className="mb-3 text-title font-title text-primary">
                 Ringkasan
               </h2>
               <div className="rounded-2xl bg-surface p-4">
@@ -150,7 +151,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
 
             {fm.corrections.length > 0 && (
               <section aria-labelledby="koreksi" className="mt-10 space-y-3">
-                <h2 id="koreksi" className="text-title font-title">
+                <h2 id="koreksi" className="text-title font-title text-primary">
                   Koreksi
                 </h2>
                 {fm.corrections.map((c) => (
@@ -163,7 +164,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
 
             <p className="mt-8 text-caption font-caption text-ink-muted">
               Nemu yang keliru? Kirim lewat DM @{site.instagram.handle}, aku perbaiki dan catat di{" "}
-              <Link href="/cara-aku-riset#koreksi" className="text-primary underline underline-offset-2">
+              <Link href="/cara-aku-riset#koreksi" className="text-accent underline underline-offset-2">
                 halaman koreksi
               </Link>
               .
@@ -173,12 +174,13 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
               <ButtonLink href={site.instagram.url} external>
                 Follow @{site.instagram.handle}
               </ButtonLink>
-              <Link href="/catatan" className="text-label font-label text-primary">
+              <Link href="/catatan" className="text-label font-label text-accent">
                 Baca catatan lain
               </Link>
             </div>
-          </article>
+          </div>
         </Container>
+        </article>
       </main>
     </>
   );
