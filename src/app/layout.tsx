@@ -4,7 +4,6 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { Analytics } from "@vercel/analytics/next";
 import { Footer } from "@/components/footer";
 import { showDrafts } from "@/lib/content";
 import { site } from "@/lib/site";
