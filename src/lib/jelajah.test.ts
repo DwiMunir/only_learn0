@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import type { Article } from "./content";
-import { keRingkas, normalisasi, saring, type Ringkas } from "./jelajah";
+import { hitungPerTopik, keRingkas, normalisasi, saring, type Ringkas } from "./jelajah";
 
 function r(slug: string, terbit: string, isi: Partial<Ringkas> = {}): Ringkas {
   return {
@@ -141,4 +141,14 @@ test("gambar yang filenya tidak ada dilewati", () => {
   const a = artikel({ thumbnail: "/thumbs/uji.jpg", reel: { poster: "/reels/uji.jpg" } });
   assert.equal(keRingkas(a, (p) => p !== "/thumbs/uji.jpg").gambar, "/reels/uji.jpg");
   assert.equal(keRingkas(a, () => false).gambar, undefined);
+});
+
+test("hitungPerTopik: jumlah asli per topik, topik kosong tetap 0, topik asing diabaikan", () => {
+  assert.deepEqual(hitungPerTopik(daftar), { uang: 2, karier: 1, "psikologi-sehari-hari": 1 });
+  assert.deepEqual(hitungPerTopik([]), { uang: 0, karier: 0, "psikologi-sehari-hari": 0 });
+  assert.deepEqual(hitungPerTopik([r("x", "2026-10-01", { topik: "lain" }), r("y", "2026-10-02")]), {
+    uang: 1,
+    karier: 0,
+    "psikologi-sehari-hari": 0,
+  });
 });

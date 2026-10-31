@@ -1,8 +1,11 @@
 import { HeroBeranda } from "@/components/hero";
 import { DaftarJelajah, Jelajah, KotakCari } from "@/components/jelajah";
+import { KategoriPopuler } from "@/components/kategori-populer";
+import { Langganan } from "@/components/langganan";
 import { TopBar } from "@/components/top-bar";
 import { ButtonLink } from "@/components/ui";
 import { getAllRingkas } from "@/lib/content";
+import { hitungPerTopik } from "@/lib/jelajah";
 import { site } from "@/lib/site";
 
 export default function HomePage() {
@@ -39,8 +42,11 @@ export default function HomePage() {
             <div className="min-w-0 lg:col-span-8">
               <DaftarJelajah />
             </div>
-            {/* Sidebar (kartu langganan dan Kategori Populer) diisi di tugas berikutnya */}
-            <aside className="lg:col-span-4" />
+            {/* Sidebar: di HP turun ke bawah daftar */}
+            <aside className="flex flex-col gap-6 lg:col-span-4">
+              <Langganan />
+              <KategoriPopuler hitung={hitungPerTopik(daftar)} />
+            </aside>
           </div>
         </Jelajah>
       </main>

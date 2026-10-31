@@ -3,7 +3,7 @@
  * Data ringkas disiapkan di server saat build, lalu disaring di browser.
  */
 import type { Article } from "./content";
-import { getTopic } from "./site";
+import { getTopic, topics, type TopicSlug } from "./site";
 
 export type Ringkas = {
   slug: string;
@@ -71,4 +71,13 @@ export function saring(daftar: Ringkas[], o: { q?: string; topik?: string; urut?
     .filter((r) => kata.every((k) => teksCari(r).includes(k)))
     .sort((a, b) => (a.terbit < b.terbit ? 1 : a.terbit > b.terbit ? -1 : 0));
   return o.urut === "terlama" ? hasil.reverse() : hasil;
+}
+
+/** Jumlah artikel per topik untuk Kategori Populer. Topik tanpa artikel tetap muncul dengan 0. */
+export function hitungPerTopik(daftar: Ringkas[]): Record<TopicSlug, number> {
+  const hitung = Object.fromEntries(topics.map((t) => [t.slug, 0])) as Record<TopicSlug, number>;
+  for (const r of daftar) {
+    if (Object.hasOwn(hitung, r.topik)) hitung[r.topik as TopicSlug] += 1;
+  }
+  return hitung;
 }
