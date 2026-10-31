@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { PitaHalaman } from "@/components/hero";
-import { ReelList } from "@/components/reel-row";
+import { DaftarJelajah, Jelajah, KotakCari } from "@/components/jelajah";
 import { TopBar } from "@/components/top-bar";
-import { TopicChips } from "@/components/topic-chips";
 import { Container } from "@/components/ui";
-import { getAllArticles } from "@/lib/content";
+import { getAllRingkas } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Semua catatan",
@@ -13,23 +12,25 @@ export const metadata: Metadata = {
 };
 
 export default function AllNotesPage() {
-  const articles = getAllArticles();
+  const daftar = getAllRingkas();
   return (
     <>
       <TopBar back={{ href: "/", label: "Beranda" }} />
       <main>
-        <PitaHalaman>
-          <h1 className="text-headline font-headline text-primary">Semua catatan</h1>
-          <p className="mt-2 text-body text-ink">{articles.length} catatan, terbaru dulu.</p>
-        </PitaHalaman>
-        <Container>
-          <div className="max-w-[680px] pt-6">
-            <div className="mb-2">
-              <TopicChips active="semua" />
+        <Jelajah daftar={daftar}>
+          <PitaHalaman>
+            <h1 className="text-headline font-headline text-primary">Semua catatan</h1>
+            <p className="mt-2 text-body text-ink">{daftar.length} catatan, lengkap dengan sumbernya.</p>
+            <div className="mt-5 max-w-[520px]">
+              <KotakCari />
             </div>
-            <ReelList articles={articles} showDate />
-          </div>
-        </Container>
+          </PitaHalaman>
+          <Container>
+            <div className="max-w-[800px] pt-4">
+              <DaftarJelajah />
+            </div>
+          </Container>
+        </Jelajah>
       </main>
     </>
   );

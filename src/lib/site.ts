@@ -20,16 +20,19 @@ export const topics = [
   {
     slug: "uang",
     name: "Uang",
+    emoji: "🪙",
     description: "Catatan riset soal kebiasaan dan psikologi uang anak muda.",
   },
   {
     slug: "karier",
     name: "Karier",
+    emoji: "💼",
     description: "Catatan riset soal cari kerja, interview, dan dunia kantor.",
   },
   {
     slug: "psikologi-sehari-hari",
     name: "Psikologi sehari-hari",
+    emoji: "💜",
     description: "Catatan riset soal kebiasaan, emosi, dan relasi sehari-hari.",
   },
 ] as const;

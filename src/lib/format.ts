@@ -10,6 +10,18 @@ export function formatDate(iso: string): string {
   return fmt.format(new Date(`${iso.slice(0, 10)}T00:00:00Z`));
 }
 
+const fmtPanjang = new Intl.DateTimeFormat("id-ID", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
+/** "2026-10-26T05:35" → "26 Oktober 2026". Dipakai di kartu artikel. */
+export function formatTanggalPanjang(iso: string): string {
+  return fmtPanjang.format(new Date(`${iso.slice(0, 10)}T00:00:00Z`));
+}
+
 export function today(): string {
   return new Date().toISOString().slice(0, 10);
 }

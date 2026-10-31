@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { site } from "@/lib/site";
 
 /** Gradasi pastel + gelombang berlapis. Dipakai bersama oleh hero beranda dan pita halaman. */
 function LatarPastel({ tinggi }: { tinggi: "penuh" | "pita" }) {
@@ -6,13 +7,13 @@ function LatarPastel({ tinggi }: { tinggi: "penuh" | "pita" }) {
     <div aria-hidden="true" className="pointer-events-none absolute inset-0">
       <div className="absolute inset-0 bg-gradient-to-br from-hero-peach via-hero-lavender to-hero-sky" />
       <svg
-        className={`absolute inset-x-0 bottom-0 w-full ${tinggi === "penuh" ? "h-[55%]" : "h-[70%]"}`}
+        className={`absolute inset-x-0 -bottom-px w-full ${tinggi === "penuh" ? "h-[55%]" : "h-[70%]"}`}
         viewBox="0 0 1440 200"
         preserveAspectRatio="none"
       >
         <path d="M0 90 C240 20 480 170 760 100 C1040 30 1240 120 1440 60 L1440 200 L0 200 Z" className="fill-hero-sky" opacity="0.75" />
         <path d="M0 140 C300 80 560 190 860 130 C1120 80 1300 150 1440 110 L1440 200 L0 200 Z" className="fill-hero-pink" opacity="0.7" />
-        <path d="M0 175 C320 140 640 200 960 165 C1180 140 1330 180 1440 160 L1440 200 L0 200 Z" className="fill-paper" />
+        <path d="M0 175 C320 140 640 200 960 165 C1180 140 1330 180 1440 160 L1440 200 L0 200 Z" className="fill-surface" />
       </svg>
     </div>
   );
@@ -65,7 +66,7 @@ export function HeroBeranda({ children }: { children?: ReactNode }) {
             </span>
           </h1>
           <p className="mt-5 max-w-[34ch] text-body text-ink lg:text-[1.125rem]">
-            Tiap konten @only_learn0 ada sumbernya. Ini catatan lengkapnya.
+            Tiap konten @{site.instagram.handle} ada sumbernya. Ini catatan lengkapnya.
           </p>
           {children && <div className="mt-6 max-w-[520px]">{children}</div>}
         </div>

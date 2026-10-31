@@ -4,7 +4,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { cekIsiMdx, parseArticleFile, terbaruDulu, validateArticle } from "./content";
-import { formatDate } from "./format";
+import { formatDate, formatTanggalPanjang } from "./format";
 import { frontmatterSchema } from "./schema";
 
 const MDX_TANPA_REEL = `---
@@ -79,6 +79,11 @@ test("publishedAt boleh berisi jam, tanggal tampil tetap tanpa jam", () => {
   assert.equal(frontmatterSchema.parse({ ...dasar, publishedAt: new Date("2026-10-26T05:35:00Z") }).publishedAt, "2026-10-26T05:35");
   assert.ok(!frontmatterSchema.safeParse({ ...dasar, publishedAt: "26-10-2026" }).success);
   assert.equal(formatDate("2026-10-26T05:35"), formatDate("2026-10-26"));
+});
+
+test("tanggal panjang untuk kartu artikel", () => {
+  assert.equal(formatTanggalPanjang("2026-10-26T23:59"), "26 Oktober 2026");
+  assert.equal(formatTanggalPanjang("2026-09-06"), "6 September 2026");
 });
 
 test("terbit dan dicek di hari yang sama tidak memicu warning walau publishedAt berjam", () => {

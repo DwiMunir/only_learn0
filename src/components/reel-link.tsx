@@ -16,7 +16,7 @@ export function ReelLink({ url, poster }: { url?: string; poster?: string }) {
       className="flex items-center gap-3 rounded-2xl border border-line p-2.5 hover:bg-surface"
     >
       <span className="relative shrink-0">
-        <ReelThumb poster={poster} className="h-[74px] w-[52px]" />
+        <ReelThumb src={poster} className="h-[74px] w-[52px]" />
         {/* ikon play di lingkaran navy semi-transparan agar terbaca di atas poster apa pun */}
         <span className="absolute inset-0 grid place-items-center" aria-hidden="true">
           <span className="grid size-[22px] place-items-center rounded-full bg-primary/70 text-on-primary">

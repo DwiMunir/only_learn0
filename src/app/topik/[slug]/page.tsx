@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PitaHalaman } from "@/components/hero";
-import { ReelList } from "@/components/reel-row";
+import { DaftarJelajah, Jelajah, KotakCari } from "@/components/jelajah";
 import { TopBar } from "@/components/top-bar";
-import { TopicChips } from "@/components/topic-chips";
 import { ButtonLink, Container } from "@/components/ui";
-import { getArticlesByTopic } from "@/lib/content";
+import { getAllRingkas } from "@/lib/content";
 import { getTopic, site, topics } from "@/lib/site";
 
 type Params = { slug: string };
@@ -27,25 +26,40 @@ export default async function TopicPage({ params }: { params: Promise<Params> })
   const { slug } = await params;
   const topic = getTopic(slug);
   if (!topic) notFound();
-  const articles = getArticlesByTopic(slug);
+  // Semua artikel ikut dikirim supaya chip topik lain tetap bisa menyaring di tempat
+  const daftar = getAllRingkas();
+  const adaArtikel = daftar.some((a) => a.topik === topic.slug);
+
+  const pita = (cari: boolean) => (
+    <PitaHalaman>
+      <h1 className="text-headline font-headline text-primary">{topic.name}</h1>
+      <p className="mt-2 text-body text-ink">{topic.description}</p>
+      {cari && (
+        <div className="mt-5 max-w-[520px]">
+          <KotakCari />
+        </div>
+      )}
+    </PitaHalaman>
+  );
 
   return (
     <>
       <TopBar back={{ href: "/", label: "Beranda" }} aktif={topic.slug} />
       <main>
-        <PitaHalaman>
-          <h1 className="text-headline font-headline text-primary">{topic.name}</h1>
-          <p className="mt-2 text-body text-ink">{topic.description}</p>
-        </PitaHalaman>
-        <Container>
-          <div className="max-w-[680px] pt-6">
-            <div className="mb-2">
-              <TopicChips active={topic.slug} />
-            </div>
-            {articles.length > 0 ? (
-              <ReelList articles={articles} showDate />
-            ) : (
-              <div className="mt-4 rounded-2xl bg-surface p-6">
+        {adaArtikel ? (
+          <Jelajah daftar={daftar} topikAwal={topic.slug}>
+            {pita(true)}
+            <Container>
+              <div className="max-w-[800px] pt-4">
+                <DaftarJelajah />
+              </div>
+            </Container>
+          </Jelajah>
+        ) : (
+          <>
+            {pita(false)}
+            <Container>
+              <div className="mt-4 max-w-[800px] rounded-2xl border border-line bg-paper p-6">
                 <p className="text-body">
                   Belum ada catatan di topik {topic.name}. Ada pertanyaan yang ingin dibahas? Kirim lewat DM.
                 </p>
@@ -53,9 +67,9 @@ export default async function TopicPage({ params }: { params: Promise<Params> })
                   Kirim pertanyaan lewat DM
                 </ButtonLink>
               </div>
-            )}
-          </div>
-        </Container>
+            </Container>
+          </>
+        )}
       </main>
     </>
   );

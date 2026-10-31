@@ -3,6 +3,7 @@ import path from "node:path";
 import matter from "gray-matter";
 import { createProcessor } from "@mdx-js/mdx";
 import { evidenceLevels, type EvidenceLevel } from "./evidence";
+import { keRingkas, type Ringkas } from "./jelajah";
 import { frontmatterSchema, formatZodError, slugSchema, type Frontmatter, type Source } from "./schema";
 
 export const CONTENT_DIR = path.join(process.cwd(), "content", "catatan");
@@ -100,6 +101,16 @@ export function getAllArticles(opts: { includeDrafts?: boolean } = {}): Article[
       .sort((a, b) => terbaruDulu(a.frontmatter.publishedAt, b.frontmatter.publishedAt));
   }
   return cache.filter((a) => includeDrafts || !a.frontmatter.draft);
+}
+
+/** Path gambar lokal ("/...") harus ada di folder public. URL luar dianggap ada. */
+export function gambarAda(p: string): boolean {
+  return !p.startsWith("/") || fs.existsSync(path.join(PUBLIC_DIR, p));
+}
+
+/** Data ringkas semua artikel (terbaru dulu) untuk kartu, cari, dan Tersimpan. */
+export function getAllRingkas(): Ringkas[] {
+  return getAllArticles().map((a) => keRingkas(a, gambarAda));
 }
 
 export function getArticle(slug: string): Article | undefined {
