@@ -30,7 +30,7 @@ export default function MethodPage() {
       <TopBar back={{ href: "/", label: "Beranda" }} aktif="riset" />
       <main>
         <PitaHalaman>
-          <h1 className="text-headline font-headline text-primary">Cara aku riset</h1>
+          <h1 className="text-headline font-headline text-navy">Cara aku riset</h1>
           <p className="mt-2 text-body text-ink">
             Setiap reel di @{site.instagram.handle} berangkat dari pertanyaan sehari-hari. Halaman ini menjelaskan
             dari mana jawabannya datang, dan seberapa kuat buktinya.
@@ -42,7 +42,7 @@ export default function MethodPage() {
               <SectionTitle id="langkah">Empat langkah</SectionTitle>
               <ol className="space-y-4">
                 {steps.map((s, i) => (
-                  <li key={s.title} className="flex gap-4 rounded-2xl bg-surface p-4">
+                  <li key={s.title} className="flex gap-4 rounded-2xl border border-line bg-paper p-4">
                     <span className="grid size-8 shrink-0 place-items-center rounded-full bg-primary text-label font-label text-on-primary">
                       {i + 1}
                     </span>
@@ -59,7 +59,7 @@ export default function MethodPage() {
               <SectionTitle id="label-bukti">Arti label bukti</SectionTitle>
               <ul className="space-y-3">
                 {evidenceLevelKeys.map((key) => (
-                  <li key={key} className="rounded-2xl bg-surface p-4">
+                  <li key={key} className="rounded-2xl border border-line bg-paper p-4">
                     <EvidenceMeter level={key} />
                     <p className="mt-1.5 text-body text-ink-muted">{evidenceLevels[key].explain}</p>
                   </li>

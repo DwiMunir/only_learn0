@@ -31,8 +31,8 @@ export default async function OgImage({ params }: { params: Promise<{ slug: stri
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#FFFFFF",
-          color: "#14283A",
+          backgroundImage: "linear-gradient(135deg, #FDE8D7 0%, #EEE6FB 50%, #DCEAFE 100%)",
+          color: "#131B3A",
           padding: "64px 72px",
           position: "relative",
           overflow: "hidden",
@@ -46,15 +46,15 @@ export default async function OgImage({ params }: { params: Promise<{ slug: stri
             width: 360,
             height: 360,
             borderRadius: 9999,
-            background: "#ADDFE5",
+            background: "#F9E0EC",
           }}
         />
         <div style={{ display: "flex", alignItems: "center", gap: 14, fontSize: 32, fontWeight: 800 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={mark} height={40} width={68} alt="" />
           <span style={{ display: "flex", gap: 10 }}>
-            <span style={{ color: "#0E314D" }}>Only</span>
-            <span style={{ color: "#3B87A6" }}>Learn</span>
+            <span style={{ color: "#131B3A" }}>Only</span>
+            <span style={{ color: "#2563EB" }}>Learn</span>
           </span>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -71,10 +71,10 @@ export default async function OgImage({ params }: { params: Promise<{ slug: stri
             {title}
           </div>
         </div>
-        <div style={{ display: "flex", gap: 32, fontSize: 28, color: "#5B6B78" }}>
+        <div style={{ display: "flex", gap: 32, fontSize: 28, color: "#5E6582" }}>
           {topic && <span>{topic}</span>}
           <span>{count} sumber</span>
-          <span style={{ color: "#2F6B8D" }}>@{site.instagram.handle}</span>
+          <span style={{ color: "#2563EB" }}>@{site.instagram.handle}</span>
         </div>
       </div>
     ),

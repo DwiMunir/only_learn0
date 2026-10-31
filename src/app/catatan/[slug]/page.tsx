@@ -5,6 +5,8 @@ import { ReelLink } from "@/components/reel-link";
 import { ApaKataRiset, CorrectionNote, Klaim, SourceList } from "@/components/research";
 import { SourceDialogProvider, type SheetSource } from "@/components/source-dialog";
 import { PitaHalaman } from "@/components/hero";
+import { TombolSimpan } from "@/components/simpan";
+import { warnaTag } from "@/components/kartu-artikel";
 import { TopBar } from "@/components/top-bar";
 import { ButtonLink, Container } from "@/components/ui";
 import { getAllArticles, getArticle } from "@/lib/content";
@@ -99,7 +101,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
             {topic && (
               <Link
                 href={`/topik/${topic.slug}`}
-                className="inline-flex h-7 items-center rounded-full bg-paper px-3 text-label font-label text-accent"
+                className={`inline-flex h-7 items-center rounded-full px-3 text-label font-label ${warnaTag[topic.slug] ?? "bg-paper text-ink"}`}
               >
                 {topic.name}
               </Link>
@@ -110,13 +112,16 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
               </span>
             )}
           </div>
-          <h1 className="mt-3 text-headline font-headline text-primary lg:text-[2.25rem] lg:leading-[1.15]">{fm.title}</h1>
-          {/* teks di atas kaca memakai text-ink agar kontras aman di atas lingkaran teal */}
-          <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-caption font-caption text-ink">
-            <span>Dicek {formatDate(fm.checkedAt)}</span>
-            <span>{sources.length} sumber</span>
-            <span>{article.readingMinutes} menit baca</span>
-          </p>
+          <h1 className="mt-3 text-headline font-headline text-navy lg:text-[2.25rem] lg:leading-[1.15]">{fm.title}</h1>
+          {/* meta + Simpan di pita pastel; text-ink menjaga kontras di atas gradasi */}
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
+            <p className="flex flex-wrap gap-x-4 gap-y-1 text-caption font-caption text-ink">
+              <span>Dicek {formatDate(fm.checkedAt)}</span>
+              <span>{sources.length} sumber</span>
+              <span>{article.readingMinutes} menit baca</span>
+            </p>
+            <TombolSimpan slug={slug} />
+          </div>
         </PitaHalaman>
         <Container>
           <div className="max-w-[680px]">
@@ -130,28 +135,26 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
               <ReelLink url={fm.reel?.url} poster={fm.reel?.poster} />
             </div>
 
-            <section aria-labelledby="ringkasan" className="mt-8">
-              <h2 id="ringkasan" className="mb-3 text-title font-title text-primary">
+            <section aria-labelledby="ringkasan" className="mt-6 rounded-2xl border border-line bg-paper p-5">
+              <h2 id="ringkasan" className="mb-3 text-title font-title text-navy">
                 Ringkasan
               </h2>
-              <div className="rounded-2xl bg-surface p-4">
-                <ul className="list-disc space-y-2 pl-5 text-body marker:text-ink-muted">
-                  {fm.summary.map((s) => (
-                    <li key={s}>{s}</li>
-                  ))}
-                </ul>
-              </div>
+              <ul className="list-disc space-y-2 pl-5 text-body marker:text-ink-muted">
+                {fm.summary.map((s) => (
+                  <li key={s}>{s}</li>
+                ))}
+              </ul>
             </section>
 
             <SourceDialogProvider sources={sheetSources}>
-              <div className="prose-artikel mt-2">{content}</div>
+              <div className="prose-artikel mt-8">{content}</div>
             </SourceDialogProvider>
 
             <SourceList sources={sources} />
 
             {fm.corrections.length > 0 && (
               <section aria-labelledby="koreksi" className="mt-10 space-y-3">
-                <h2 id="koreksi" className="text-title font-title text-primary">
+                <h2 id="koreksi" className="text-title font-title text-navy">
                   Koreksi
                 </h2>
                 {fm.corrections.map((c) => (
@@ -164,17 +167,17 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
 
             <p className="mt-8 text-caption font-caption text-ink-muted">
               Nemu yang keliru? Kirim lewat DM @{site.instagram.handle}, aku perbaiki dan catat di{" "}
-              <Link href="/cara-aku-riset#koreksi" className="text-accent underline underline-offset-2">
+              <Link href="/cara-aku-riset#koreksi" className="text-primary underline underline-offset-2">
                 halaman koreksi
               </Link>
               .
             </p>
 
-            <div className="mt-10 flex flex-col items-center gap-4 lg:flex-row">
+            <div className="mt-10 flex flex-col items-center gap-4 pb-4 lg:flex-row">
               <ButtonLink href={site.instagram.url} external>
                 Follow @{site.instagram.handle}
               </ButtonLink>
-              <Link href="/catatan" className="text-label font-label text-accent">
+              <Link href="/catatan" className="text-label font-label text-primary">
                 Baca catatan lain
               </Link>
             </div>

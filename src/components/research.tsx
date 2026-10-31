@@ -57,7 +57,7 @@ export function Klaim({
           <span className="mt-1.5 block">
             <EvidenceMeter level={s.level as EvidenceLevel} />
           </span>
-          <a href={s.url} target="_blank" rel="noopener" className="mt-1 inline-block text-accent underline underline-offset-2">
+          <a href={s.url} target="_blank" rel="noopener" className="mt-1 inline-block text-primary underline underline-offset-2">
             Buka sumber
           </a>
         </span>
@@ -70,8 +70,8 @@ export function Klaim({
 export function ApaKataRiset({ claims, sources }: { claims: Claim[]; sources: NumberedSource[] }) {
   if (claims.length === 0) return null;
   return (
-    <section aria-labelledby="apa-kata-riset" className="my-10">
-      <h2 id="apa-kata-riset" className="mb-2 text-title font-title text-primary">
+    <section aria-labelledby="apa-kata-riset" className="my-10 rounded-2xl border border-line bg-paper p-5">
+      <h2 id="apa-kata-riset" className="mb-2 text-title font-title text-navy">
         Apa kata riset
       </h2>
       <ul>
@@ -100,8 +100,8 @@ export function ApaKataRiset({ claims, sources }: { claims: Claim[]; sources: Nu
 
 export function SourceList({ sources }: { sources: NumberedSource[] }) {
   return (
-    <section aria-labelledby="sumber" className="mt-12">
-      <h2 id="sumber" className="mb-2 text-title font-title text-primary">
+    <section aria-labelledby="sumber" className="mt-12 rounded-2xl border border-line bg-paper p-5">
+      <h2 id="sumber" className="mb-2 text-title font-title text-navy">
         Sumber
       </h2>
       <ol>
@@ -116,7 +116,7 @@ export function SourceList({ sources }: { sources: NumberedSource[] }) {
               </p>
               <EvidenceMeter level={s.level as EvidenceLevel} className="mt-2" />
               <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-caption font-caption">
-                <a href={s.url} target="_blank" rel="noopener" className="text-accent underline underline-offset-2">
+                <a href={s.url} target="_blank" rel="noopener" className="text-primary underline underline-offset-2">
                   Buka sumber asli
                 </a>
                 <span className="text-ink-muted">Dicek {formatDate(s.checkedAt)}</span>

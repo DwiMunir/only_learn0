@@ -5,7 +5,7 @@ import { ArrowRightIcon, CalendarIcon, ClockIcon, DocIcon } from "./icons";
 import { ReelThumb } from "./reel-row";
 import { TombolSimpan } from "./simpan";
 
-const warnaTag: Record<string, string> = {
+export const warnaTag: Record<string, string> = {
   uang: "bg-tag-uang-bg text-tag-uang-fg",
   karier: "bg-tag-karier-bg text-tag-karier-fg",
   "psikologi-sehari-hari": "bg-tag-psikologi-bg text-tag-psikologi-fg",

@@ -13,7 +13,7 @@ export function ReelLink({ url, poster }: { url?: string; poster?: string }) {
       href={url}
       target="_blank"
       rel="noopener"
-      className="flex items-center gap-3 rounded-2xl border border-line p-2.5 hover:bg-surface"
+      className="flex items-center gap-3 rounded-2xl border border-line bg-paper p-2.5 hover:bg-primary-soft"
     >
       <span className="relative shrink-0">
         <ReelThumb src={poster} className="h-[74px] w-[52px]" />

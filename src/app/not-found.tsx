@@ -8,14 +8,14 @@ export default function NotFound() {
       <TopBar />
       <main>
         <PitaHalaman>
-          <h1 className="text-headline font-headline text-primary">Catatan ini tidak ditemukan</h1>
+          <h1 className="text-headline font-headline text-navy">Catatan ini tidak ditemukan</h1>
           <p className="mt-2 text-body text-ink">
             Mungkin link-nya salah ketik, atau catatannya sedang diperbarui. Cari dari daftar catatan.
           </p>
         </PitaHalaman>
         <Container>
           <div className="max-w-[680px] pt-6">
-            <ButtonLink href="/catatan" >
+            <ButtonLink href="/catatan">
               Lihat semua catatan
             </ButtonLink>
           </div>

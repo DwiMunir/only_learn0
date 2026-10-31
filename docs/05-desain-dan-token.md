@@ -39,7 +39,10 @@ Ada di `src/app/globals.css`:
 | correction-note | `src/components/research.tsx` (`CorrectionNote`) |
 | topic-chip | `src/components/topic-chips.tsx` |
 | button-primary, button-secondary | `src/components/ui.tsx` (`ButtonLink`) |
-| glass-hero | `src/components/hero.tsx` |
+| pita halaman pastel (`PitaHalaman`) dan hero beranda (`HeroBeranda`) | `src/components/hero.tsx` |
+| kartu artikel, tag topik (`warnaTag`) | `src/components/kartu-artikel.tsx` |
+| tombol Simpan, halaman Tersimpan | `src/components/simpan.tsx`, `src/app/tersimpan` |
+| Jelajah (cari + filter), Kategori Populer, langganan | `src/components/jelajah.tsx`, `kategori-populer.tsx`, sidebar |
 | footer | `src/components/footer.tsx` |
 | Wordmark (logo + "Only Learn") | `src/components/ui.tsx` (`Wordmark`) |
 | tautan reel (thumbnail + play) | `src/components/reel-link.tsx` (`ReelLink`) |
@@ -60,6 +63,7 @@ Cara ini menjaga desain tetap konsisten, dan perubahan desain selalu lewat satu 
 - Merah hanya dipakai di `CorrectionNote`.
 - Meteran bukti selalu disertai label teks (dan teks untuk pembaca layar), tidak hanya warna.
 - Tidak ada animasi kecuali sheet sumber, dan itu pun mati kalau pengguna memilih `prefers-reduced-motion`.
-- Teal (`brand-teal`) tidak pernah dipakai sebagai teks, kecuali kata "Learn" di wordmark.
-- Gradasi hanya ada di latar hero dan kotak pengganti poster.
-- Bayangan hanya ada di kartu kaca hero dan sheet sumber.
+- Judul memakai `text-navy`, aksi dan tautan memakai `text-primary` (biru). Teal sudah tidak dipakai.
+- Gradasi pastel dan gelombang hanya ada di `PitaHalaman`/`HeroBeranda` (token `hero-*`) dan kotak pengganti poster.
+- Bayangan hanya ada di sheet sumber. Kartu putih memakai `border-line`.
+- Tag topik memakai pasangan `tag-*-bg`/`tag-*-fg`; meteran bukti memakai `meter-filled`/`meter-empty`.
