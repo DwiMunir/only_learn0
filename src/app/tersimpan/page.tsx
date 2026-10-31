@@ -18,7 +18,7 @@ export default function TersimpanPage() {
       <TopBar back={{ href: "/", label: "Beranda" }} />
       <main>
         <PitaHalaman>
-          <h1 className="text-headline font-headline text-primary">Tersimpan</h1>
+          <h1 className="text-headline font-headline text-navy">Tersimpan</h1>
           <p className="mt-2 text-body text-ink">Artikel yang kamu simpan di perangkat ini.</p>
         </PitaHalaman>
         <Container>

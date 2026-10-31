@@ -19,7 +19,7 @@ export default function AllNotesPage() {
       <main>
         <Jelajah daftar={daftar}>
           <PitaHalaman>
-            <h1 className="text-headline font-headline text-primary">Semua catatan</h1>
+            <h1 className="text-headline font-headline text-navy">Semua catatan</h1>
             <p className="mt-2 text-body text-ink">{daftar.length} catatan, lengkap dengan sumbernya.</p>
             <div className="mt-5 max-w-[520px]">
               <KotakCari />

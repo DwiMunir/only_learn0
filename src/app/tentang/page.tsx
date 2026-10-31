@@ -27,7 +27,7 @@ export default async function AboutPage() {
         </PitaHalaman>
         <Container>
           <div className="max-w-[680px] pt-6">
-            <div className="prose-artikel rounded-2xl border border-line bg-paper p-5">{body}</div>
+            <div className="prose-artikel rounded-2xl border border-line bg-paper p-5 [&>:last-child]:mb-0">{body}</div>
           </div>
         </Container>
       </main>

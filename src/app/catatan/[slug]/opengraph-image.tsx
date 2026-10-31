@@ -60,7 +60,8 @@ export default async function OgImage({ params }: { params: Promise<{ slug: stri
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
             style={{
-              display: "flex",
+              display: "block",
+              whiteSpace: "pre-wrap",
               fontSize: 60,
               fontWeight: 800,
               lineHeight: 1.15,
@@ -72,7 +73,7 @@ export default async function OgImage({ params }: { params: Promise<{ slug: stri
           </div>
         </div>
         <div style={{ display: "flex", gap: 32, fontSize: 28, color: "#5E6582" }}>
-          {topic && <span>{topic}</span>}
+          {topic && <span style={{ display: "block", whiteSpace: "pre-wrap" }}>{topic}</span>}
           <span>{count} sumber</span>
           <span style={{ color: "#2563EB" }}>@{site.instagram.handle}</span>
         </div>

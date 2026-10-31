@@ -32,7 +32,7 @@ export default async function TopicPage({ params }: { params: Promise<Params> })
 
   const pita = (cari: boolean) => (
     <PitaHalaman>
-      <h1 className="text-headline font-headline text-primary">{topic.name}</h1>
+      <h1 className="text-headline font-headline text-navy">{topic.name}</h1>
       <p className="mt-2 text-body text-ink">{topic.description}</p>
       {cari && (
         <div className="mt-5 max-w-[520px]">
