@@ -29,7 +29,11 @@ export function KartuArtikel({ a }: { a: Ringkas }) {
         </div>
 
         <h3 className="mt-2 line-clamp-2 text-item-title font-item-title text-ink group-hover:text-primary">
-          <Link href={`/catatan/${a.slug}`} className="after:absolute after:inset-0 after:rounded-2xl">
+          {/* Cincin fokus digambar di ::after (seukuran kartu), bukan di tautan: h3 ber-line-clamp memotong outline tautan */}
+          <Link
+            href={`/catatan/${a.slug}`}
+            className="after:absolute after:inset-0 after:rounded-2xl focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-primary"
+          >
             {a.judul}
           </Link>
         </h3>
