@@ -89,3 +89,16 @@ test("terbit dan dicek di hari yang sama tidak memicu warning walau publishedAt 
   assert.ok(!f.some((x) => /checkedAt lebih lama/.test(x.message)));
   fs.rmSync(dir, { recursive: true, force: true });
 });
+
+test("thumbnail yang filenya belum ada hanya warning", () => {
+  const f = cekMdx(MDX_TANPA_REEL.replace("draft: false", "draft: false\nthumbnail: /thumbs/tidak-ada-uji.jpg"));
+  assert.ok(f.some((x) => x.level === "warning" && x.message === "Thumbnail /thumbs/tidak-ada-uji.jpg belum ada di folder public. Kartu memakai poster atau gambar pengganti."));
+  assert.ok(!f.some((x) => x.level === "error"));
+});
+
+test("thumbnail hanya path lokal /thumbs/ yang aman", () => {
+  const dasar = { title: "T", description: "D", topic: "uang", publishedAt: "2026-10-26", checkedAt: "2026-10-26", summary: ["S"], sources: [{ id: "a", title: "T", authors: "A", year: 2020, url: "https://doi.org/10.1/x", level: "moderate", supports: "S" }] };
+  assert.ok(frontmatterSchema.safeParse({ ...dasar, thumbnail: "/thumbs/x.jpg" }).success);
+  assert.ok(!frontmatterSchema.safeParse({ ...dasar, thumbnail: "https://evil/x.jpg" }).success);
+  assert.ok(!frontmatterSchema.safeParse({ ...dasar, thumbnail: "/thumbs/../x.jpg" }).success);
+});

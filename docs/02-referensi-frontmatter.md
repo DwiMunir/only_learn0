@@ -14,6 +14,7 @@ Semua aturan di bawah dicek oleh `npm run cek` dan saat build. Sumber kebenarann
 | `draft` | tidak | `true` \| `false` | Default `false`. Draft tidak tampil di produksi. |
 | `reel.url` | tidak | link reel Instagram; opsional, diisi `npm run reel` atau Morena | Contoh `https://www.instagram.com/reel/De5eo3WFZqJ/` |
 | `reel.poster` | tidak | path | Contoh `/reels/sunday-scaries.jpg` (file di `public/reels/`). |
+| `thumbnail` | tidak | path `/thumbs/<slug>.jpg` | Gambar kartu artikel (file di `public/thumbs/`). Disarankan 1200x675 (16:9), JPEG atau WebP, maks 200 KB. Hanya path lokal berawalan `/thumbs/`. Kalau file belum ada, `npm run cek` memberi warning dan kartu memakai poster reel, lalu kotak pengganti. |
 | `summary` | ya | 1–5 teks | Poin di bagian "Ringkasan". |
 | `sources` | ya | daftar, minimal 1 | Lihat tabel di bawah. Urutannya jadi nomor footnote. |
 | `claims` | tidak | daftar | Isi bagian "Apa kata riset". |

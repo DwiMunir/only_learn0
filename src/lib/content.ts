@@ -261,6 +261,10 @@ export function validateArticle(article: Article): Finding[] {
     }
   }
 
+  if (fm.thumbnail && !fs.existsSync(path.join(PUBLIC_DIR, fm.thumbnail))) {
+    warn(`Thumbnail ${fm.thumbnail} belum ada di folder public. Kartu memakai poster atau gambar pengganti.`);
+  }
+
   return findings;
 }
 

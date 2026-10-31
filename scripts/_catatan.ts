@@ -27,6 +27,7 @@ export function catatanDariNote(
     publishedAt: o.lama?.publishedAt ?? o.waktu ?? o.hariIni,
     checkedAt: note.checkedAt ?? o.hariIni,
     draft: !o.terbit,
+    ...(note.thumbnail ? { thumbnail: note.thumbnail } : {}),
     ...(note.reel ? { reel: note.reel } : {}),
     summary: note.summary,
     sources: note.sources,

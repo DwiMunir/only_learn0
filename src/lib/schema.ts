@@ -54,6 +54,12 @@ function makeSourceSchema<D extends z.ZodType<string>>(date: D) {
   });
 }
 
+/** Gambar kartu artikel: path lokal di public/thumbs. Tanpa "..", tanpa URL luar. */
+const thumbnailPath = z
+  .string()
+  .regex(/^\/thumbs\/[a-z0-9-]+\.(jpg|jpeg|webp|png)$/, "Thumbnail harus path lokal seperti /thumbs/<slug>.jpg")
+  .describe("Gambar kartu artikel, 1200x675 (16:9), JPEG atau WebP, maks 200 KB. Path lokal /thumbs/<slug>.jpg");
+
 const claimSchema = z.object({
   text: z.string().min(1).describe("Klaim singkat untuk bagian Apa kata riset"),
   sources: z.array(slugSchema).min(1).describe("ID sumber pendukung"),
@@ -66,6 +72,7 @@ export const frontmatterSchema = z.object({
   publishedAt: fmWaktu,
   checkedAt: fmDate,
   draft: z.boolean().default(false),
+  thumbnail: thumbnailPath.optional(),
   reel: z
     .object({
       url: instagramUrl.optional(),
@@ -102,6 +109,7 @@ export const researchNoteSchema = z.object({
     })
     .optional(),
   checkedAt: isoDate.optional(),
+  thumbnail: thumbnailPath.optional(),
 });
 
 export type ResearchNote = z.infer<typeof researchNoteSchema>;

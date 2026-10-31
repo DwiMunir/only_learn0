@@ -44,6 +44,7 @@ Morena menghasilkan satu file JSON per konten dan menyimpannya di `content/<slug
   ],
   "claims": [{ "text": "Mood naik di akhir pekan", "sources": ["stone-2012"] }],
   "reel": { "poster": "/reels/sunday-scaries.jpg" },
+  "thumbnail": "/thumbs/sunday-scaries.jpg",
   "checkedAt": "2026-10-25"
 }
 ```
@@ -64,10 +65,25 @@ Kalau Morena butuh field tambahan untuk dirinya sendiri (naskah video, storyboar
    npm run --silent impor -- <path absolut artikel.json> --terbit   # tambah --timpa (dan --koreksi "<teks>") kalau terbit ulang
    npm run cek
    ```
-   Lalu commit hanya `content/catatan/<slug>.mdx` dan `public/reels/<slug>.jpg`, dan push. Vercel yang deploy.
+   Lalu commit hanya `content/catatan/<slug>.mdx`, `public/reels/<slug>.jpg`, dan `public/thumbs/<slug>.jpg` (kalau ada thumbnail), dan push. Vercel yang deploy.
 4. `--timpa` mempertahankan `publishedAt` dan koreksi lama. `--koreksi` menambah satu catatan koreksi bertanggal hari ini, dan hanya bisa dipakai untuk artikel yang sudah ada.
 
 **Kenapa gerbang centang sumber ada:** AI bisa salah mengutip, menebak DOI, atau membuat klaim yang lebih kuat dari isi sumbernya. Blog ini menjual kepercayaan, jadi satu sumber yang salah merusak semua catatan lain. Langkah cek manual adalah satu-satunya bagian yang tidak boleh diotomasi.
+
+---
+
+## 2b. Thumbnail artikel
+
+Kartu artikel di beranda memakai gambar 16:9. Blog hanya mendukungnya; gambarnya dibuat Morena.
+
+- **Field:** `thumbnail: "/thumbs/<slug>.jpg"` di `artikel.json` (opsional). Nilainya harus path lokal berawalan `/thumbs/`, huruf kecil, angka, tanda hubung, berakhiran `.jpg`, `.jpeg`, `.webp`, atau `.png`. URL luar dan `..` ditolak schema.
+- **Format yang disarankan:** 1200x675 (16:9), JPEG atau WebP, maksimal 200 KB.
+- **Tugas Morena:**
+  1. menyalin gambar ke `public/thumbs/<slug>.jpg` di folder blog;
+  2. mengisi `thumbnail` di `artikel.json`;
+  3. ikut meng-commit file gambar itu saat publish.
+- **Importer** meneruskan field ini ke frontmatter. `npm run cek` memberi warning (bukan error) kalau file lokalnya tidak ada.
+- **Urutan pakai di kartu:** thumbnail, lalu poster reel, lalu kotak gradasi pastel dengan monogram OL.
 
 ---
 

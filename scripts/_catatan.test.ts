@@ -35,3 +35,10 @@ test("artikel baru memakai waktu terbit lengkap, timpa tetap memakai yang lama",
   const lama = { publishedAt: "2026-10-25T03:00", corrections: [] };
   assert.equal(catatanDariNote(note, { hariIni: "2026-11-01", waktu: "2026-11-01T05:35", terbit: true, lama }).frontmatter.publishedAt, "2026-10-25T03:00");
 });
+
+test("thumbnail diteruskan ke frontmatter, dan tidak muncul kalau kosong", () => {
+  const ada = catatanDariNote({ ...note, thumbnail: "/thumbs/contoh.jpg" }, { hariIni: "2026-11-01", terbit: true });
+  assert.equal(ada.frontmatter.thumbnail, "/thumbs/contoh.jpg");
+  const tidak = catatanDariNote({ ...note, thumbnail: undefined }, { hariIni: "2026-11-01", terbit: true });
+  assert.ok(!("thumbnail" in tidak.frontmatter));
+});
