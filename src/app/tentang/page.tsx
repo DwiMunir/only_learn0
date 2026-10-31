@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import type { Metadata } from "next";
-import { GlassHero } from "@/components/hero";
+import { PitaHalaman } from "@/components/hero";
 import { TopBar } from "@/components/top-bar";
 import { Container } from "@/components/ui";
 import { renderMdx } from "@/lib/mdx";
@@ -22,9 +22,9 @@ export default async function AboutPage() {
     <>
       <TopBar back={{ href: "/", label: "Beranda" }} />
       <main>
-        <GlassHero>
+        <PitaHalaman>
           <h1 className="text-headline font-headline text-primary">{String(data.title ?? "Tentang")}</h1>
-        </GlassHero>
+        </PitaHalaman>
         <Container>
           <div className="max-w-[680px] pt-6">
             <div className="prose-artikel">{body}</div>

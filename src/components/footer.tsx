@@ -3,9 +3,9 @@ import { site } from "@/lib/site";
 import { Container, Wordmark } from "./ui";
 
 export function Footer() {
-  const linkCls = "font-label text-label text-paper hover:underline focus-visible:outline-paper";
+  const linkCls = "font-label text-label text-white hover:underline focus-visible:outline-white";
   return (
-    <footer className="mt-16 bg-primary text-on-dark">
+    <footer className="mt-16 bg-navy text-white/80">
       <Container className="py-8">
         <div className="inline-flex rounded-xl bg-paper px-3 py-1.5">
           <Link href="/">
@@ -20,11 +20,14 @@ export function Footer() {
           <Link href="/tentang" className={linkCls}>
             Tentang
           </Link>
+          <Link href="/tersimpan" className={linkCls}>
+            Tersimpan
+          </Link>
           <a href={site.instagram.url} target="_blank" rel="noopener" className={linkCls}>
             Instagram
           </a>
         </div>
-        <p className="mt-4 text-caption font-caption opacity-70">
+        <p className="mt-4 text-caption font-caption text-white/60">
           © {new Date().getFullYear()} {site.name}
         </p>
       </Container>

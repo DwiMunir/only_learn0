@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { GlassHero } from "@/components/hero";
+import { PitaHalaman } from "@/components/hero";
 import { ReelList } from "@/components/reel-row";
 import { TopBar } from "@/components/top-bar";
 import { TopicChips } from "@/components/topic-chips";
@@ -31,12 +31,12 @@ export default async function TopicPage({ params }: { params: Promise<Params> })
 
   return (
     <>
-      <TopBar back={{ href: "/", label: "Beranda" }} />
+      <TopBar back={{ href: "/", label: "Beranda" }} aktif={topic.slug} />
       <main>
-        <GlassHero>
+        <PitaHalaman>
           <h1 className="text-headline font-headline text-primary">{topic.name}</h1>
           <p className="mt-2 text-body text-ink">{topic.description}</p>
-        </GlassHero>
+        </PitaHalaman>
         <Container>
           <div className="max-w-[680px] pt-6">
             <div className="mb-2">

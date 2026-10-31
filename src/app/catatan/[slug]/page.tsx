@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ReelLink } from "@/components/reel-link";
 import { ApaKataRiset, CorrectionNote, Klaim, SourceList } from "@/components/research";
 import { SourceDialogProvider, type SheetSource } from "@/components/source-dialog";
-import { GlassHero } from "@/components/hero";
+import { PitaHalaman } from "@/components/hero";
 import { TopBar } from "@/components/top-bar";
 import { ButtonLink, Container } from "@/components/ui";
 import { getAllArticles, getArticle } from "@/lib/content";
@@ -94,7 +94,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
       <TopBar back={{ href: "/catatan", label: "Semua catatan" }} />
       <main>
         <article>
-        <GlassHero>
+        <PitaHalaman>
           <div className="flex flex-wrap items-center gap-2">
             {topic && (
               <Link
@@ -117,7 +117,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
             <span>{sources.length} sumber</span>
             <span>{article.readingMinutes} menit baca</span>
           </p>
-        </GlassHero>
+        </PitaHalaman>
         <Container>
           <div className="max-w-[680px]">
             {/* "<" di-escape: teks frontmatter tidak boleh bisa menutup tag <script> ini */}

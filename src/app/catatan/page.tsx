@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { GlassHero } from "@/components/hero";
+import { PitaHalaman } from "@/components/hero";
 import { ReelList } from "@/components/reel-row";
 import { TopBar } from "@/components/top-bar";
 import { TopicChips } from "@/components/topic-chips";
@@ -18,10 +18,10 @@ export default function AllNotesPage() {
     <>
       <TopBar back={{ href: "/", label: "Beranda" }} />
       <main>
-        <GlassHero>
+        <PitaHalaman>
           <h1 className="text-headline font-headline text-primary">Semua catatan</h1>
           <p className="mt-2 text-body text-ink">{articles.length} catatan, terbaru dulu.</p>
-        </GlassHero>
+        </PitaHalaman>
         <Container>
           <div className="max-w-[680px] pt-6">
             <div className="mb-2">

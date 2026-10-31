@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { EvidenceMeter } from "@/components/evidence-meter";
 import { CorrectionNote } from "@/components/research";
-import { GlassHero } from "@/components/hero";
+import { PitaHalaman } from "@/components/hero";
 import { TopBar } from "@/components/top-bar";
 import { ButtonLink, Container, SectionTitle } from "@/components/ui";
 import { getAllCorrections } from "@/lib/content";
@@ -27,15 +27,15 @@ export default function MethodPage() {
 
   return (
     <>
-      <TopBar back={{ href: "/", label: "Beranda" }} />
+      <TopBar back={{ href: "/", label: "Beranda" }} aktif="riset" />
       <main>
-        <GlassHero>
+        <PitaHalaman>
           <h1 className="text-headline font-headline text-primary">Cara aku riset</h1>
           <p className="mt-2 text-body text-ink">
             Setiap reel di @{site.instagram.handle} berangkat dari pertanyaan sehari-hari. Halaman ini menjelaskan
             dari mana jawabannya datang, dan seberapa kuat buktinya.
           </p>
-        </GlassHero>
+        </PitaHalaman>
         <Container>
           <div className="max-w-[680px] pt-6">
             <section aria-labelledby="langkah">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GlassHero } from "@/components/hero";
+import { HeroBeranda } from "@/components/hero";
 import { ReelList } from "@/components/reel-row";
 import { TopBar } from "@/components/top-bar";
 import { TopicChips } from "@/components/topic-chips";
@@ -17,10 +17,7 @@ export default function HomePage() {
     <>
       <TopBar />
       <main>
-        <GlassHero>
-          <h1 className="text-headline font-headline text-primary lg:text-display">{site.tagline}</h1>
-          <p className="mt-3 text-body text-ink">{site.intro}</p>
-        </GlassHero>
+        <HeroBeranda />
         <Container>
           <section aria-labelledby="catatan-terbaru" className="max-w-[680px] pt-6">
             <h2 id="catatan-terbaru" className="text-title font-title text-primary">
@@ -33,7 +30,7 @@ export default function HomePage() {
               <>
                 <ReelList articles={latest} />
                 {articles.length > HOME_LIMIT && (
-                  <Link href="/catatan" className="mt-3 inline-block text-label font-label text-accent hover:underline">
+                  <Link href="/catatan" className="mt-3 inline-block text-label font-label text-primary hover:underline">
                     Lihat semua catatan
                   </Link>
                 )}
