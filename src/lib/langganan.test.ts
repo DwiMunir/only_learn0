@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { daftarkan, validasi, type Hasil } from "./langganan";
+import { bacaPermintaan, daftarkan, validasi, type Hasil } from "./langganan";
 
 const SUKSES: Hasil = { status: 200, pesan: "Terima kasih! Kamu sudah terdaftar." };
 const BELUM_AKTIF: Hasil = { status: 503, pesan: "Langganan belum aktif. Coba lagi nanti." };
@@ -45,6 +45,53 @@ test("validasi: badan bukan objek atau berisi kunci asing", () => {
     assert.deepEqual(validasi(body), salah, `body: ${JSON.stringify(body)}`);
   }
   assert.deepEqual(validasi({ email: "a@b.co", lain: 1 }), salah);
+});
+
+// ---------- bacaPermintaan ----------
+
+const URL_UJI = "http://localhost/api/langganan";
+const json = (body: string, header: Record<string, string> = {}) =>
+  new Request(URL_UJI, { method: "POST", headers: { "content-type": "application/json", ...header }, body });
+
+test("bacaPermintaan: JSON biasa (juga dengan charset) lolos", async () => {
+  assert.deepEqual(await bacaPermintaan(json('{"email":"a@b.co"}')), { ok: true, body: { email: "a@b.co" } });
+  const r = new Request(URL_UJI, { method: "POST", headers: { "Content-Type": "Application/JSON; charset=utf-8" }, body: "[1]" });
+  assert.deepEqual(await bacaPermintaan(r), { ok: true, body: [1] });
+});
+
+test("bacaPermintaan: Content-Type selain application/json → 415, body tidak dibaca", async () => {
+  const tolak = { ok: false, hasil: { status: 415, pesan: "Permintaan tidak valid." } };
+  // POST no-cors dari situs lain hanya bisa text/plain, form-urlencoded, atau multipart
+  for (const tipe of ["text/plain;charset=UTF-8", "application/x-www-form-urlencoded", "multipart/form-data; boundary=x"]) {
+    const r = new Request(URL_UJI, { method: "POST", headers: { "content-type": tipe }, body: '{"email":"a@b.co"}' });
+    assert.deepEqual(await bacaPermintaan(r), tolak, tipe);
+    assert.equal(r.bodyUsed, false, `body tidak dibaca untuk ${tipe}`);
+  }
+  // Tanpa header Content-Type sama sekali
+  const tanpa = new Request(URL_UJI, { method: "POST", body: new Uint8Array([123, 125]) });
+  assert.equal(tanpa.headers.get("content-type"), null);
+  assert.deepEqual(await bacaPermintaan(tanpa), tolak);
+});
+
+test("bacaPermintaan: content-length > 1024 → 413 tanpa membaca body", async () => {
+  const r = json('{"email":"a@b.co"}', { "content-length": "1025" });
+  assert.deepEqual(await bacaPermintaan(r), { ok: false, hasil: { status: 413, pesan: "Permintaan tidak valid." } });
+  assert.equal(r.bodyUsed, false);
+  // Tepat 1024 masih boleh (header saja; body asli kecil)
+  assert.equal((await bacaPermintaan(json('{"email":"a@b.co"}', { "content-length": "1024" }))).ok, true);
+});
+
+test("bacaPermintaan: body nyata > 1024 byte tanpa content-length (chunked) → 413", async () => {
+  const besar = JSON.stringify({ email: "a".repeat(1100) + "@b.co" });
+  const r = json(besar);
+  assert.equal(r.headers.get("content-length"), null);
+  assert.deepEqual(await bacaPermintaan(r), { ok: false, hasil: { status: 413, pesan: "Permintaan tidak valid." } });
+});
+
+test("bacaPermintaan: bukan JSON → 400", async () => {
+  for (const body of ["not json", "", "{email:"]) {
+    assert.deepEqual(await bacaPermintaan(json(body)), { ok: false, hasil: { status: 400, pesan: "Permintaan tidak valid." } }, body);
+  }
 });
 
 // ---------- daftarkan ----------
@@ -107,6 +154,28 @@ test("daftarkan: 409/422 karena alasan lain → 502", async () => {
   for (const status of [409, 422]) {
     const { f } = stub(() => Response.json({ statusCode: status, name: "validation_error", message: "Invalid `email` field." }, { status }));
     assert.deepEqual(catat(await daftarkan("a@b.co", { RESEND_API_KEY: KUNCI }, f)), GAGAL, `status ${status}`);
+  }
+  // Salah setel segment bukan "kontak sudah ada": jangan jadi sukses palsu
+  const { f } = stub(() =>
+    Response.json({ statusCode: 422, name: "validation_error", message: "Segments must reference an existing segment." }, { status: 422 }),
+  );
+  assert.deepEqual(catat(await daftarkan("a@b.co", { RESEND_API_KEY: KUNCI, RESEND_SEGMENT_ID: "salah" }, f)), GAGAL);
+});
+
+test("daftarkan: 409/422 dengan isi teks biasa (bukan JSON)", async () => {
+  const sudah = stub(() => new Response("Contact already exist", { status: 409 }));
+  assert.deepEqual(catat(await daftarkan("a@b.co", { RESEND_API_KEY: KUNCI }, sudah.f)), SUKSES);
+  const lain = stub(() => new Response("Conflict: existing request in progress", { status: 409 }));
+  assert.deepEqual(catat(await daftarkan("a@b.co", { RESEND_API_KEY: KUNCI }, lain.f)), GAGAL);
+});
+
+test("daftarkan: body balasan yang tidak dibaca dibatalkan", async () => {
+  for (const [status, harap] of [[500, GAGAL], [401, GAGAL], [200, SUKSES]] as const) {
+    let batal = false;
+    const body = new ReadableStream({ cancel: () => void (batal = true) });
+    const { f } = stub(() => new Response(body, { status }));
+    assert.deepEqual(catat(await daftarkan("a@b.co", { RESEND_API_KEY: KUNCI }, f)), harap, `status ${status}`);
+    assert.equal(batal, true, `body ${status} dibatalkan`);
   }
 });
 

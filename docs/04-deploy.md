@@ -1,6 +1,6 @@
 # Deploy
 
-Situs ini statis penuh: semua halaman di-render saat build, tanpa database atau server yang perlu dirawat.
+Semua halaman di-render statis saat build, tanpa database atau server yang perlu dirawat. Satu-satunya yang berjalan di server adalah endpoint langganan email (`POST /api/langganan`).
 
 ## Vercel (paling cepat)
 
@@ -15,6 +15,22 @@ Situs ini statis penuh: semua halaman di-render saat build, tanpa database atau 
 
    Dengan pengaturan ini, setiap branch atau Pull Request mendapat link preview yang **menampilkan draft** (dan otomatis `noindex`), sementara produksi hanya menampilkan catatan yang sudah terbit.
 4. Deploy. Build command bawaan (`npm run build`) sudah menjalankan `npm run cek` lebih dulu. Kalau ada catatan yang rusak, deploy gagal dan versi lama tetap jalan.
+
+## Aktifkan langganan email
+
+Selama `RESEND_API_KEY` kosong, form langganan menjawab "Langganan belum aktif. Coba lagi nanti." dan tidak memanggil Resend.
+
+1. **Pasang rate limit dulu**, sebelum kunci diisi. Endpoint ini publik, jadi tanpa batas siapa pun bisa membanjiri daftar kontakmu. Di Vercel, buka tab **Firewall** project dan tambahkan aturan baru: kalau path sama dengan `/api/langganan` dan method `POST`, aksinya **Rate Limit** dengan jendela 60 detik, 5 request per IP, lalu **Deny**. Paket Hobby mendapat 1 aturan rate limit per project. Lewat CLI:
+
+   ```bash
+   vercel firewall rules add "Batasi langganan" \
+     --condition '{"type":"path","op":"eq","value":"/api/langganan"}' \
+     --condition '{"type":"method","op":"eq","value":"POST"}' \
+     --action rate_limit --rate-limit-window 60 --rate-limit-requests 5 \
+     --rate-limit-keys ip --rate-limit-action deny --yes
+   ```
+2. Di **Settings → Environment Variables** (Production), isi `RESEND_API_KEY`. Kalau kontak baru mau dimasukkan ke segment tertentu, isi juga `RESEND_SEGMENT_ID` (opsional).
+3. Redeploy supaya env baru terpakai, lalu coba daftar dengan email sendiri.
 
 ## Domain
 

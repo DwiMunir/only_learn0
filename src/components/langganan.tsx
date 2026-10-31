@@ -11,7 +11,8 @@ type Keadaan =
   | { tahap: "siap" }
   | { tahap: "mengirim" }
   | { tahap: "berhasil"; pesan: string }
-  | { tahap: "gagal"; pesan: string };
+  // emailSalah: server membalas 400 (isian bermasalah), bukan 503/502 (masalah di sisi kita)
+  | { tahap: "gagal"; pesan: string; emailSalah: boolean };
 
 /**
  * Kartu langganan email (navy, ilustrasi gunung). Form mengirim ke POST /api/langganan;
@@ -45,14 +46,15 @@ export function Langganan() {
       const json: unknown = await res.json().catch(() => null);
       const pesan =
         json && typeof json === "object" && "pesan" in json && typeof json.pesan === "string" ? json.pesan : PESAN_GAGAL;
-      setK(res.ok ? { tahap: "berhasil", pesan } : { tahap: "gagal", pesan });
+      setK(res.ok ? { tahap: "berhasil", pesan } : { tahap: "gagal", pesan, emailSalah: res.status === 400 });
     } catch {
-      setK({ tahap: "gagal", pesan: PESAN_GAGAL });
+      setK({ tahap: "gagal", pesan: PESAN_GAGAL, emailSalah: false });
     }
   }
 
   const mengirim = k.tahap === "mengirim";
   const gagal = k.tahap === "gagal";
+  const emailSalah = k.tahap === "gagal" && k.emailSalah;
 
   return (
     <section
@@ -106,7 +108,8 @@ export function Langganan() {
         </p>
 
         {k.tahap !== "berhasil" && (
-          <form onSubmit={kirim} className="mt-5">
+          // method="post": kalau terkirim sebelum JavaScript siap, email tidak masuk ke URL
+          <form method="post" onSubmit={kirim} className="mt-5">
             <div className="flex h-12 items-center rounded-full bg-paper pl-5 pr-1.5 has-[input:focus-visible]:outline-2 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-primary">
               <label htmlFor="email-langganan" className="sr-only">
                 Email kamu
@@ -122,7 +125,7 @@ export function Langganan() {
                 inputMode="email"
                 enterKeyHint="send"
                 placeholder="Email kamu…"
-                aria-invalid={gagal || undefined}
+                aria-invalid={emailSalah || undefined}
                 aria-describedby={gagal ? "status-langganan" : undefined}
                 className="h-full min-w-0 flex-1 bg-transparent pr-2 text-body text-ink outline-none placeholder:text-ink-muted focus-visible:outline-none"
               />
