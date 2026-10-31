@@ -2,13 +2,6 @@ import Link from "next/link";
 import { topics, type TopicSlug } from "@/lib/site";
 import { ArrowRightIcon } from "./icons";
 
-// Lingkaran emoji memakai latar label topik, sama dengan tag di kartu artikel
-const latarTopik: Record<TopicSlug, string> = {
-  uang: "bg-tag-uang-bg",
-  karier: "bg-tag-karier-bg",
-  "psikologi-sehari-hari": "bg-tag-psikologi-bg",
-};
-
 const baris =
   "flex items-center gap-3 rounded-2xl px-2 py-2 transition-colors hover:bg-primary-soft focus-visible:outline-offset-0";
 
@@ -39,7 +32,8 @@ export function KategoriPopuler({ hitung }: { hitung: Record<TopicSlug, number> 
         {topics.map((t) => (
           <li key={t.slug}>
             <Link href={`/topik/${t.slug}`} className={baris}>
-              <span aria-hidden="true" className={`grid size-10 shrink-0 place-items-center rounded-full text-lg ${latarTopik[t.slug]}`}>
+              {/* Lingkaran emoji memakai latar label topik, sama dengan tag di kartu artikel */}
+              <span aria-hidden="true" className={`grid size-10 shrink-0 place-items-center rounded-full text-lg ${t.warna.bg}`}>
                 {t.emoji}
               </span>
               <span className="min-w-0 flex-1 text-body font-label text-ink">{t.name}</span>

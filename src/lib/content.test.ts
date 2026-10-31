@@ -4,7 +4,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { cekIsiMdx, parseArticleFile, terbaruDulu, validateArticle } from "./content";
-import { formatDate, formatTanggalPanjang } from "./format";
+import { formatDate, formatTanggalPanjang, waktuMesin } from "./format";
 import { frontmatterSchema } from "./schema";
 
 const MDX_TANPA_REEL = `---
@@ -82,8 +82,18 @@ test("publishedAt boleh berisi jam, tanggal tampil tetap tanpa jam", () => {
 });
 
 test("tanggal panjang untuk kartu artikel", () => {
-  assert.equal(formatTanggalPanjang("2026-10-26T23:59"), "26 Oktober 2026");
+  assert.equal(formatTanggalPanjang("2026-10-26T05:35"), "26 Oktober 2026");
   assert.equal(formatTanggalPanjang("2026-09-06"), "6 September 2026");
+});
+
+test("tanggal berjam (UTC) tampil sebagai hari di WIB, tanggal saja tetap", () => {
+  assert.equal(formatTanggalPanjang("2026-10-27T17:32"), "28 Oktober 2026");
+  assert.equal(formatTanggalPanjang("2026-10-27T16:59"), "27 Oktober 2026");
+  assert.equal(formatTanggalPanjang("2026-12-31T17:00"), "1 Januari 2027");
+  assert.equal(formatTanggalPanjang("2026-10-27"), "27 Oktober 2026");
+  assert.equal(formatDate("2026-10-27T17:32"), formatDate("2026-10-28"));
+  assert.equal(waktuMesin("2026-10-27T17:32"), "2026-10-27T17:32Z");
+  assert.equal(waktuMesin("2026-10-27"), "2026-10-27");
 });
 
 test("terbit dan dicek di hari yang sama tidak memicu warning walau publishedAt berjam", () => {

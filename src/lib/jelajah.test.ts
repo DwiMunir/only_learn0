@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import type { Article } from "./content";
-import { hitungPerTopik, keRingkas, normalisasi, saring, type Ringkas } from "./jelajah";
+import { batasi, hitungPerTopik, keRingkas, normalisasi, saring, type Ringkas } from "./jelajah";
 
 function r(slug: string, terbit: string, isi: Partial<Ringkas> = {}): Ringkas {
   return {
@@ -85,6 +85,19 @@ test("q kosong atau spasi saja mengembalikan semua", () => {
 
 test("cari dan topik bisa digabung", () => {
   assert.deepEqual(slugs(saring(daftar, { q: "judul", topik: "uang", urut: "terlama" })), ["lama", "pagi"]);
+});
+
+test("batasi: hanya saat cari kosong dan topik Semua", () => {
+  const hasil = saring(daftar, {});
+  assert.deepEqual(slugs(batasi(hasil, { q: "", topik: "", batas: 2 })), ["baru", "tengah"]);
+  assert.deepEqual(slugs(batasi(hasil, { q: "   ", topik: "", batas: 2 })), ["baru", "tengah"]);
+  // Ada kata dicari atau topik dipilih: tanpa batas
+  assert.equal(batasi(hasil, { q: "judul", topik: "", batas: 2 }).length, 4);
+  const uang = saring(daftar, { topik: "uang" });
+  assert.deepEqual(batasi(uang, { q: "", topik: "uang", batas: 1 }), uang);
+  // Tanpa batas, atau batas lebih besar dari hasil: semua
+  assert.equal(batasi(hasil, { q: "", topik: "" }).length, 4);
+  assert.equal(batasi(hasil, { q: "", topik: "", batas: 8 }).length, 4);
 });
 
 test("normalisasi: huruf kecil, tanpa aksen, spasi dirapikan", () => {

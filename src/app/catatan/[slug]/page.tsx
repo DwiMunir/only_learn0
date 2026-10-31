@@ -6,7 +6,6 @@ import { ApaKataRiset, CorrectionNote, Klaim, SourceList } from "@/components/re
 import { SourceDialogProvider, type SheetSource } from "@/components/source-dialog";
 import { PitaHalaman } from "@/components/hero";
 import { TombolSimpan } from "@/components/simpan";
-import { warnaTag } from "@/components/kartu-artikel";
 import { TopBar } from "@/components/top-bar";
 import { ButtonLink, Container } from "@/components/ui";
 import { getAllArticles, getArticle } from "@/lib/content";
@@ -101,7 +100,7 @@ export default async function ArticlePage({ params }: { params: Promise<Params> 
             {topic && (
               <Link
                 href={`/topik/${topic.slug}`}
-                className={`inline-flex h-7 items-center rounded-full px-3 text-label font-label ${warnaTag[topic.slug] ?? "bg-paper text-ink"}`}
+                className={`inline-flex h-7 items-center rounded-full px-3 text-label font-label ${topic.warna.bg} ${topic.warna.fg}`}
               >
                 {topic.name}
               </Link>

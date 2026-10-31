@@ -73,6 +73,15 @@ export function saring(daftar: Ringkas[], o: { q?: string; topik?: string; urut?
   return o.urut === "terlama" ? hasil.reverse() : hasil;
 }
 
+/**
+ * Batas kartu awal (beranda): hanya berlaku saat pencarian kosong dan topik "Semua".
+ * Begitu ada kata dicari atau topik dipilih, seluruh hasil tampil tanpa batas.
+ */
+export function batasi(hasil: Ringkas[], o: { q: string; topik: string; batas?: number }): Ringkas[] {
+  if (!o.batas || o.topik || normalisasi(o.q)) return hasil;
+  return hasil.slice(0, o.batas);
+}
+
 /** Jumlah artikel per topik untuk Kategori Populer. Topik tanpa artikel tetap muncul dengan 0. */
 export function hitungPerTopik(daftar: Ringkas[]): Record<TopicSlug, number> {
   const hitung = Object.fromEntries(topics.map((t) => [t.slug, 0])) as Record<TopicSlug, number>;

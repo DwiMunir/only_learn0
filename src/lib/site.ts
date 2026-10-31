@@ -16,23 +16,27 @@ export const site = {
   },
 } as const;
 
+// `warna`: kelas label topik untuk kartu, pita artikel, dan Kategori Populer. Ditulis utuh supaya terbaca Tailwind.
 export const topics = [
   {
     slug: "uang",
     name: "Uang",
     emoji: "🪙",
+    warna: { bg: "bg-tag-uang-bg", fg: "text-tag-uang-fg" },
     description: "Catatan riset soal kebiasaan dan psikologi uang anak muda.",
   },
   {
     slug: "karier",
     name: "Karier",
     emoji: "💼",
+    warna: { bg: "bg-tag-karier-bg", fg: "text-tag-karier-fg" },
     description: "Catatan riset soal cari kerja, interview, dan dunia kantor.",
   },
   {
     slug: "psikologi-sehari-hari",
     name: "Psikologi sehari-hari",
     emoji: "💜",
+    warna: { bg: "bg-tag-psikologi-bg", fg: "text-tag-psikologi-fg" },
     description: "Catatan riset soal kebiasaan, emosi, dan relasi sehari-hari.",
   },
 ] as const;
@@ -43,4 +47,10 @@ export const topicSlugs = topics.map((t) => t.slug) as [TopicSlug, ...TopicSlug[
 
 export function getTopic(slug: string): Topic | undefined {
   return topics.find((t) => t.slug === slug);
+}
+
+/** Kelas latar + teks label topik. Slug yang tidak dikenal mendapat `cadangan`. */
+export function kelasTag(slug: string, cadangan = "bg-surface text-ink"): string {
+  const w = getTopic(slug)?.warna;
+  return w ? `${w.bg} ${w.fg}` : cadangan;
 }

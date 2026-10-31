@@ -40,7 +40,8 @@ export default function HomePage() {
           </HeroBeranda>
           <div className="mx-auto grid max-w-[1200px] gap-8 px-4 lg:grid-cols-12 lg:px-6">
             <div className="min-w-0 lg:col-span-8">
-              <DaftarJelajah />
+              {/* 8 kartu dulu supaya kartu langganan di bawahnya tidak tenggelam di HP; cari/topik tetap ke semua artikel */}
+              <DaftarJelajah batas={8} />
             </div>
             {/* Sidebar: di HP turun ke bawah daftar */}
             <aside className="flex flex-col gap-6 lg:col-span-4">

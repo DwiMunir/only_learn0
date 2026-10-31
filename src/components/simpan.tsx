@@ -86,7 +86,10 @@ export function useTerpasang(): boolean {
   );
 }
 
-/** Tombol Simpan/Tersimpan. Tidak tampil sebelum terpasang atau kalau localStorage tidak bisa dipakai. */
+/**
+ * Tombol Simpan/Tersimpan. Tidak tampil sebelum terpasang atau kalau localStorage tidak bisa dipakai.
+ * Keadaan dibacakan lewat labelnya sendiri (Simpan/Tersimpan), jadi tanpa aria-pressed supaya tidak disebut dua kali.
+ */
 export function TombolSimpan({ slug, judul }: { slug: string; judul?: string }) {
   const { siap, tersimpan, ubah } = useSimpan();
   if (!siap) return null;
@@ -94,7 +97,6 @@ export function TombolSimpan({ slug, judul }: { slug: string; judul?: string }) 
   return (
     <button
       type="button"
-      aria-pressed={aktif}
       onClick={() => ubah(slug)}
       className={`relative z-10 -mx-1.5 inline-flex min-h-6 items-center gap-1 rounded-full px-1.5 hover:bg-primary-soft hover:text-primary ${aktif ? "text-primary" : ""}`}
     >

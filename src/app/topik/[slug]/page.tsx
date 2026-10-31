@@ -26,9 +26,9 @@ export default async function TopicPage({ params }: { params: Promise<Params> })
   const { slug } = await params;
   const topic = getTopic(slug);
   if (!topic) notFound();
-  // Semua artikel ikut dikirim supaya chip topik lain tetap bisa menyaring di tempat
-  const daftar = getAllRingkas();
-  const adaArtikel = daftar.some((a) => a.topik === topic.slug);
+  // Chip topik di sini berupa tautan ke halaman topik lain, jadi cukup artikel topik ini yang dikirim
+  const daftar = getAllRingkas().filter((a) => a.topik === topic.slug);
+  const adaArtikel = daftar.length > 0;
 
   const pita = (cari: boolean) => (
     <PitaHalaman>
@@ -51,7 +51,7 @@ export default async function TopicPage({ params }: { params: Promise<Params> })
             {pita(true)}
             <Container>
               <div className="max-w-[800px] pt-4">
-                <DaftarJelajah />
+                <DaftarJelajah chip="tautan" />
               </div>
             </Container>
           </Jelajah>

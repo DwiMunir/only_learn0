@@ -5,7 +5,7 @@ import { site } from "@/lib/site";
 function LatarPastel({ tinggi }: { tinggi: "penuh" | "pita" }) {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-      <div className="absolute inset-0 bg-gradient-to-br from-hero-peach via-hero-lavender to-hero-sky" />
+      <div className="absolute inset-0 bg-linear-to-br from-hero-peach via-hero-lavender to-hero-sky" />
       <svg
         className={`absolute inset-x-0 -bottom-px w-full ${tinggi === "penuh" ? "h-[55%]" : "h-[70%]"}`}
         viewBox="0 0 1440 200"

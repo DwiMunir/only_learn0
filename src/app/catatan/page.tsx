@@ -27,7 +27,7 @@ export default function AllNotesPage() {
           </PitaHalaman>
           <Container>
             <div className="max-w-[800px] pt-4">
-              <DaftarJelajah />
+              <DaftarJelajah chip="tautan" />
             </div>
           </Container>
         </Jelajah>

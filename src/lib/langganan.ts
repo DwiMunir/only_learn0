@@ -106,7 +106,8 @@ export async function daftarkan(
     const res = await f(RESEND_CONTACTS, {
       method: "POST",
       headers: { Authorization: `Bearer ${kunci}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ email, unsubscribed: false, ...(segmen ? { segments: [{ id: segmen }] } : {}) }),
+      // `unsubscribed` sengaja tidak dikirim: daftar ulang tidak boleh mengubah kontak yang sudah berhenti langganan
+      body: JSON.stringify({ email, ...(segmen ? { segments: [{ id: segmen }] } : {}) }),
       signal: AbortSignal.timeout(10_000),
     });
     if (res.ok) {

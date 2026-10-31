@@ -133,14 +133,14 @@ test("daftarkan: 200 → sukses; URL, metode, header, body, dan timeout benar", 
   const header = new Headers(init.headers);
   assert.equal(header.get("authorization"), `Bearer ${KUNCI}`);
   assert.equal(header.get("content-type"), "application/json");
-  assert.deepEqual(JSON.parse(String(init.body)), { email: "a@b.co", unsubscribed: false, segments: [{ id: "seg-123" }] });
+  assert.deepEqual(JSON.parse(String(init.body)), { email: "a@b.co", segments: [{ id: "seg-123" }] });
   assert.ok(init.signal instanceof AbortSignal, "ada signal timeout");
 });
 
 test("daftarkan: tanpa segment → body tanpa `segments`", async () => {
   const { f, panggilan } = stub(() => new Response("{}", { status: 201 }));
   assert.deepEqual(catat(await daftarkan("a@b.co", { RESEND_API_KEY: KUNCI }, f)), SUKSES);
-  assert.deepEqual(JSON.parse(String(panggilan[0].init.body)), { email: "a@b.co", unsubscribed: false });
+  assert.deepEqual(JSON.parse(String(panggilan[0].init.body)), { email: "a@b.co" });
 });
 
 test("daftarkan: 409/422 kontak sudah ada → sukses", async () => {

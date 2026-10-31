@@ -20,17 +20,33 @@ Semua halaman di-render statis saat build, tanpa database atau server yang perlu
 
 Selama `RESEND_API_KEY` kosong, form langganan menjawab "Langganan belum aktif. Coba lagi nanti." dan tidak memanggil Resend.
 
-1. **Pasang rate limit dulu**, sebelum kunci diisi. Endpoint ini publik, jadi tanpa batas siapa pun bisa membanjiri daftar kontakmu. Di Vercel, buka tab **Firewall** project dan tambahkan aturan baru: kalau path sama dengan `/api/langganan` dan method `POST`, aksinya **Rate Limit** dengan jendela 60 detik, 5 request per IP, lalu **Deny**. Paket Hobby mendapat 1 aturan rate limit per project. Lewat CLI:
+1. **Pasang rate limit dulu**, sebelum kunci diisi. Endpoint ini publik, jadi tanpa batas siapa pun bisa membanjiri daftar kontakmu. Batasnya 20 request per menit per IP dengan aksi **Rate Limit** (menjawab 429). Batasnya sengaja tidak terlalu ketat: operator seluler di Indonesia sering menaruh banyak pengguna di balik satu IP bersama (CGNAT). Paket Hobby mendapat 1 aturan rate limit per project.
+
+   **Lewat dashboard:** buka tab **Firewall** project, tambahkan aturan baru: kalau path sama dengan `/api/langganan` dan method `POST`, aksinya **Rate Limit** dengan jendela 60 detik dan 20 request per IP. Lalu **Save Rule → Review Changes → Publish**. Aturan yang belum di-publish belum berlaku.
+
+   **Lewat CLI:** project harus sudah ter-link (`vercel link`). Perubahan dari CLI disimpan sebagai draft dan baru berlaku setelah di-publish:
 
    ```bash
    vercel firewall rules add "Batasi langganan" \
      --condition '{"type":"path","op":"eq","value":"/api/langganan"}' \
      --condition '{"type":"method","op":"eq","value":"POST"}' \
-     --action rate_limit --rate-limit-window 60 --rate-limit-requests 5 \
-     --rate-limit-keys ip --rate-limit-action deny --yes
+     --action rate_limit --rate-limit-window 60 --rate-limit-requests 20 \
+     --rate-limit-keys ip --rate-limit-action rate_limit --yes
+   vercel firewall diff          # lihat perubahan draft
+   vercel firewall publish --yes # aturan baru berlaku setelah ini
+   ```
+
+   **Cek aturannya jalan:** kirim 25 POST cepat. 20 pertama dijawab endpoint (503 selama kunci belum diisi), sisanya harus 429.
+
+   ```bash
+   for i in $(seq 1 25); do
+     curl -s -o /dev/null -w "%{http_code}\n" -X POST https://onlylearn0.vercel.app/api/langganan \
+       -H 'Content-Type: application/json' -d '{"email":"tes@example.com"}'
+   done
    ```
 2. Di **Settings → Environment Variables** (Production), isi `RESEND_API_KEY`. Kalau kontak baru mau dimasukkan ke segment tertentu, isi juga `RESEND_SEGMENT_ID` (opsional).
-3. Redeploy supaya env baru terpakai, lalu coba daftar dengan email sendiri.
+3. Di Resend, cek cara kontak ganda ditangani: daftar dua kali dengan email yang sama, lalu pastikan kontaknya tetap satu dan status berhenti langganannya tidak berubah. Pertimbangkan juga double opt-in (email konfirmasi sebelum kontak dianggap aktif) supaya orang lain tidak bisa mendaftarkan email yang bukan miliknya.
+4. Redeploy supaya env baru terpakai, lalu coba daftar dengan email sendiri.
 
 ## Domain
 

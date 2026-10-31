@@ -1,15 +1,10 @@
 import Link from "next/link";
-import { formatTanggalPanjang } from "@/lib/format";
+import { formatTanggalPanjang, waktuMesin } from "@/lib/format";
 import type { Ringkas } from "@/lib/jelajah";
+import { kelasTag } from "@/lib/site";
 import { ArrowRightIcon, CalendarIcon, ClockIcon, DocIcon } from "./icons";
 import { ReelThumb } from "./reel-row";
 import { TombolSimpan } from "./simpan";
-
-export const warnaTag: Record<string, string> = {
-  uang: "bg-tag-uang-bg text-tag-uang-fg",
-  karier: "bg-tag-karier-bg text-tag-karier-fg",
-  "psikologi-sehari-hari": "bg-tag-psikologi-bg text-tag-psikologi-fg",
-};
 
 /**
  * Kartu artikel. Aman dirender di server maupun di dalam komponen klien; tombol Simpan adalah pulau klien.
@@ -22,7 +17,7 @@ export function KartuArtikel({ a }: { a: Ringkas }) {
 
       <div className="min-w-0 flex-1 px-1 pb-1 sm:p-0">
         <div className="flex flex-wrap items-center gap-2">
-          <span className={`inline-flex rounded-full px-2.5 py-0.5 text-caption font-caption ${warnaTag[a.topik] ?? "bg-surface text-ink"}`}>
+          <span className={`inline-flex rounded-full px-2.5 py-0.5 text-caption font-caption ${kelasTag(a.topik)}`}>
             {a.namaTopik}
           </span>
           {a.draft && <span className="rounded-full bg-surface px-2.5 py-0.5 text-caption font-caption text-ink">Draft</span>}
@@ -41,7 +36,7 @@ export function KartuArtikel({ a }: { a: Ringkas }) {
         <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-caption font-caption text-ink-muted">
           <span className="inline-flex items-center gap-1.5">
             <CalendarIcon className="size-3.5" />
-            <time dateTime={a.terbit.slice(0, 10)}>{formatTanggalPanjang(a.terbit)}</time>
+            <time dateTime={waktuMesin(a.terbit)}>{formatTanggalPanjang(a.terbit)}</time>
           </span>
           <span className="inline-flex items-center gap-1.5">
             <ClockIcon className="size-3.5" />

@@ -41,7 +41,8 @@ export function Langganan() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: String(data.get("email") ?? ""), situs: String(data.get("situs") ?? "") }),
-        signal: AbortSignal.timeout(15_000),
+        // iOS 15 ke bawah belum punya AbortSignal.timeout: kirim tanpa batas waktu daripada error
+        signal: typeof AbortSignal.timeout === "function" ? AbortSignal.timeout(15_000) : undefined,
       });
       const json: unknown = await res.json().catch(() => null);
       const pesan =
@@ -80,7 +81,7 @@ export function Langganan() {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-navy/70 via-navy/25 to-navy/0"
+        className="pointer-events-none absolute inset-0 bg-linear-to-r from-navy/70 via-navy/25 to-navy/0"
       />
       {/* Coretan kecil di pojok kanan atas, seperti di gambar referensi */}
       <svg

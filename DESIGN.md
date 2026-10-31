@@ -289,18 +289,18 @@ Soft and light. Article cards and the sidebar cards have a hairline line border 
 
 ## Shapes
 
-- 24px corners on article cards, the subscribe card and the sidebar cards (`rounded-3xl`).
-- 16px on thumbnails, source cards and the bottom sheet (top corners only).
+- 24px corners on the subscribe card and the sidebar cards (`rounded-3xl`).
+- 16px on article cards (`rounded-2xl`), thumbnails, source cards and the bottom sheet (top corners only).
 - 8px on correction notes.
 - Full pills for nav items, topic chips, tags, buttons, the search box, footnote markers and meter segments.
 - The highlighter is a marker stroke, not a box: it covers the lower 70% of the text line height with 2px of horizontal overhang.
 
 ## Components
 
-- **Top bar:** 64px, white. The OL logo (original teal file) plus "Only Learn" in navy on the left; topic links in the middle with the current topic as a blue pill; a search icon (to `/#cari`) and a blue "Follow" pill on the right. On mobile the topic links become a scrollable row of pills.
+- **Top bar:** 64px, white. The OL logo (original teal file) plus "Only Learn" in navy on the left; topic links in the middle with the current topic as a blue pill; a search icon (to `/#cari`), a bookmark icon (to `/tersimpan`) and a blue "Follow" pill on the right. On mobile the topic links become a scrollable row of pills below the bar; only the bar itself is sticky, the pill row scrolls away with the page.
 - **Hero:** pastel gradient with wavy bottom edge, a "Blog & Insight" badge, a two-tone headline with scribble, one supporting line, a pill search box with a blue send button, and the 3D illustration on the right (on top on mobile).
 - **Article card:** white rounded card. A 16:9 picture on the left (thumbnail, else reel poster, else a pastel tile with the OL monogram), then a topic tag, the title (max two lines), a meta row (date, reading time, Simpan) and the source count ("4 sumber"). A round arrow button sits on the right. The source count is required on every card; it is the first trust signal.
-- **Topic chip:** white pill with line border and an emoji icon; the active chip is navy with white text ("Semua" is the default). Topics: "Uang", "Karier", "Psikologi sehari-hari". A sort select ("Terbaru", "Terlama") sits at the right.
+- **Topic chip:** white pill with line border and an emoji icon; the active chip is navy with white text ("Semua" is the default). Topics: "Uang", "Karier", "Psikologi sehari-hari". A sort select ("Terbaru", "Terlama") sits at the right. On the home page the chips filter in place and the list starts with 8 cards plus a "Tampilkan semua" button (a search or a topic shows every match); on `/catatan` and `/topik/<slug>` the chips are links to those pages.
 - **Subscribe card:** navy card with the night mountain illustration, a title, one line of copy, and a pill email field with a blue send button.
 - **Popular categories card:** white card with one row per topic: round emoji icon, name, and a count pill ("12 artikel"). "Cara aku riset" links to its page without a count.
 - **Claim highlight + footnote marker:** a research claim in article text sits on the yellow marker stroke, followed directly by a footnote marker (white number in a blue circle). Every highlight has a marker; every marker matches a numbered source in the "Sumber" list.
@@ -326,7 +326,7 @@ Soft and light. Article cards and the sidebar cards have a hairline line border 
 
 - Do keep yellow (#FFE066) exclusively for highlighted research claims, and red exclusively for corrections.
 - Do pair every highlight with a footnote number, and every footnote with an entry in the source list.
-- Do show the source count and the evidence label on every card and the "Dicek" date on every article.
+- Do show the source count on every card (the evidence label lives in the article) and the "Dicek" date on every article.
 - Do keep small text at 4.5:1 contrast or better; the lint checks the component pairs above.
 - Do use real copy in Bahasa Indonesia; reel hooks are used verbatim as titles.
 - Do use emoji only for topic icons and Popular Categories.

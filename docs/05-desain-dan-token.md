@@ -37,10 +37,11 @@ Ada di `src/app/globals.css`:
 | evidence-meter | `src/components/evidence-meter.tsx` |
 | source-card / daftar sumber | `src/components/research.tsx` (`SourceList`) |
 | correction-note | `src/components/research.tsx` (`CorrectionNote`) |
-| topic-chip | `src/components/topic-chips.tsx` |
+| topic-chip | chip topik di `src/components/jelajah.tsx` (`DaftarJelajah`: tombol saring di beranda, tautan di `/catatan` dan `/topik/<slug>`) dan pil topik di `top-bar.tsx` |
 | button-primary, button-secondary | `src/components/ui.tsx` (`ButtonLink`) |
 | pita halaman pastel (`PitaHalaman`) dan hero beranda (`HeroBeranda`) | `src/components/hero.tsx` |
-| kartu artikel, tag topik (`warnaTag`) | `src/components/kartu-artikel.tsx` |
+| kartu artikel | `src/components/kartu-artikel.tsx` |
+| warna tag topik (`topics[].warna`, `kelasTag`) | `src/lib/site.ts`, dipakai kartu artikel, pita artikel, dan Kategori Populer |
 | tombol Simpan, halaman Tersimpan | `src/components/simpan.tsx`, `src/app/tersimpan` |
 | Jelajah (cari + filter), Kategori Populer, langganan | `src/components/jelajah.tsx`, `kategori-populer.tsx`, sidebar |
 | footer | `src/components/footer.tsx` |
@@ -65,5 +66,5 @@ Cara ini menjaga desain tetap konsisten, dan perubahan desain selalu lewat satu 
 - Tidak ada animasi kecuali sheet sumber, dan itu pun mati kalau pengguna memilih `prefers-reduced-motion`.
 - Judul memakai `text-navy`, aksi dan tautan memakai `text-primary` (biru). Teal sudah tidak dipakai.
 - Gradasi pastel dan gelombang hanya ada di `PitaHalaman`/`HeroBeranda` (token `hero-*`) dan kotak pengganti poster.
-- Bayangan hanya ada di sheet sumber. Kartu putih memakai `border-line`.
+- Bayangan navy yang lembut (`rgba(19,27,58,…)`) hanya ada di kartu artikel (lebih dalam saat hover), kotak cari, kartu Kategori Populer, kartu langganan, dan sheet sumber. Kartu putih juga memakai `border-line`.
 - Tag topik memakai pasangan `tag-*-bg`/`tag-*-fg`; meteran bukti memakai `meter-filled`/`meter-empty`.

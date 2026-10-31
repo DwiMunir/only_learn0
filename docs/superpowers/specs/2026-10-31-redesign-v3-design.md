@@ -75,7 +75,7 @@ Pemilik ingin blog terasa lebih hidup dan modern, seperti majalah atau insight b
 12. **Langganan email:**
     - Form mengirim ke Route Handler `POST /api/langganan` (Node runtime di Vercel).
     - Handler memvalidasi email (zod, maksimal 254 karakter) dan memakai honeypot sebagai jebakan bot.
-    - Handler memanggil `POST https://api.resend.com/contacts` dengan `{ email, unsubscribed: false, segments: [{ id: RESEND_SEGMENT_ID }] }`. `segments` hanya dikirim kalau env-nya ada.
+    - Handler memanggil `POST https://api.resend.com/contacts` dengan `{ email, segments: [{ id: RESEND_SEGMENT_ID }] }`. `segments` hanya dikirim kalau env-nya ada. `unsubscribed` sengaja tidak dikirim supaya daftar ulang tidak pernah mengaktifkan lagi kontak yang sudah berhenti langganan.
     - Env yang dipakai: `RESEND_API_KEY` (wajib supaya aktif) dan `RESEND_SEGMENT_ID` (opsional).
     - Kalau `RESEND_API_KEY` kosong, handler membalas 503 dengan "Langganan belum aktif. Coba lagi nanti." dan tidak memanggil Resend.
     - Kalau kontak sudah ada, hasilnya dianggap berhasil.

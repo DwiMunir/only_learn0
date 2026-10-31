@@ -14,7 +14,7 @@ export function ButtonLink({ href, children, variant = "primary", external, clas
     variant === "primary"
       ? "bg-primary text-white hover:bg-primary-strong"
       : "border border-line bg-paper text-primary hover:bg-primary-soft";
-  const cls = `inline-flex h-12 w-full items-center justify-center rounded-md px-5 text-label font-label lg:w-auto ${styles} ${className}`;
+  const cls = `inline-flex h-11 w-full items-center justify-center rounded-full px-5 text-label font-label lg:w-auto ${styles} ${className}`;
   if (external) {
     return (
       <a href={href} target="_blank" rel="noopener" className={cls}>

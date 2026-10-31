@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { createContext, use, useEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from "react";
-import { saring, type Ringkas, type Urutan } from "@/lib/jelajah";
+import { flushSync } from "react-dom";
+import { batasi, saring, type Ringkas, type Urutan } from "@/lib/jelajah";
 import { topics } from "@/lib/site";
 import { ArrowRightIcon, ChevronDownIcon, GridIcon, SearchIcon } from "./icons";
 import { KartuArtikel } from "./kartu-artikel";
@@ -125,10 +127,29 @@ export function KotakCari() {
 
 const pilihanTopik = [{ slug: "", name: "Semua", emoji: "" }, ...topics];
 
+const kelasChip = (aktif: boolean) =>
+  `inline-flex h-9 items-center gap-2 rounded-full border px-3.5 text-label font-label sm:h-10 sm:px-4 ${
+    aktif ? "border-navy bg-navy text-white" : "border-line bg-paper text-ink hover:bg-primary-soft"
+  }`;
+
+type PropsDaftar = {
+  /** Jumlah kartu awal saat pencarian kosong dan topik "Semua" (beranda). Kosong = tanpa batas. */
+  batas?: number;
+  /**
+   * "saring": chip menyaring di tempat (beranda, aria-pressed).
+   * "tautan": chip pindah halaman ("Semua" → /catatan, topik → /topik/<slug>), supaya judul halaman dan daftar selalu cocok.
+   */
+  chip?: "saring" | "tautan";
+};
+
 /** Chip topik, pilihan urutan, lalu daftar kartu (atau pesan kosong). */
-export function DaftarJelajah() {
-  const { topik, ubahTopik, urut, ubahUrut, hasil, reset } = useJelajah();
+export function DaftarJelajah({ batas, chip = "saring" }: PropsDaftar) {
+  const { q, topik, ubahTopik, urut, ubahUrut, hasil, reset } = useJelajah();
   const judulRef = useRef<HTMLHeadingElement>(null);
+  const daftarRef = useRef<HTMLUListElement>(null);
+  const [terbuka, ubahTerbuka] = useState(false);
+  const tampil = batasi(hasil, { q, topik, batas: terbuka ? undefined : batas });
+  const sisa = hasil.length - tampil.length;
 
   return (
     <section id="daftar-artikel" aria-labelledby="judul-daftar" className="scroll-mt-32">
@@ -140,18 +161,30 @@ export function DaftarJelajah() {
       <div role="group" aria-label="Filter topik dan urutan" className="flex flex-wrap items-center gap-2">
         {pilihanTopik.map((t) => {
           const aktif = topik === t.slug;
-          return (
+          const isi = (
+            <>
+              {t.emoji ? <span aria-hidden="true">{t.emoji}</span> : <GridIcon className="size-4" />}
+              {t.name}
+            </>
+          );
+          return chip === "tautan" ? (
+            <Link
+              key={t.slug || "semua"}
+              href={t.slug ? `/topik/${t.slug}` : "/catatan"}
+              aria-current={aktif ? "page" : undefined}
+              className={kelasChip(aktif)}
+            >
+              {isi}
+            </Link>
+          ) : (
             <button
               key={t.slug || "semua"}
               type="button"
               aria-pressed={aktif}
               onClick={() => ubahTopik(t.slug)}
-              className={`inline-flex h-9 items-center gap-2 rounded-full border px-3.5 text-label font-label sm:h-10 sm:px-4 ${
-                aktif ? "border-navy bg-navy text-white" : "border-line bg-paper text-ink hover:bg-primary-soft"
-              }`}
+              className={kelasChip(aktif)}
             >
-              {t.emoji ? <span aria-hidden="true">{t.emoji}</span> : <GridIcon className="size-4" />}
-              {t.name}
+              {isi}
             </button>
           );
         })}
@@ -170,19 +203,36 @@ export function DaftarJelajah() {
         </label>
       </div>
 
-      {/* Jumlah hasil untuk pembaca layar */}
+      {/* Jumlah hasil untuk pembaca layar; saat dibatasi, sebut juga berapa yang tampil */}
       <p aria-live="polite" className="sr-only">
-        {hasil.length} artikel
+        {sisa > 0 ? `${tampil.length} dari ${hasil.length} artikel ditampilkan` : `${hasil.length} artikel`}
       </p>
 
       {hasil.length > 0 ? (
-        <ul className="mt-4 flex flex-col gap-3">
-          {hasil.map((a) => (
-            <li key={a.slug}>
-              <KartuArtikel a={a} />
-            </li>
-          ))}
-        </ul>
+        <>
+          <ul ref={daftarRef} className="mt-4 flex flex-col gap-3">
+            {tampil.map((a) => (
+              <li key={a.slug}>
+                <KartuArtikel a={a} />
+              </li>
+            ))}
+          </ul>
+          {sisa > 0 && (
+            <button
+              type="button"
+              onClick={() => {
+                const pertamaBaru = tampil.length;
+                flushSync(() => ubahTerbuka(true));
+                // Fokus pindah ke kartu pertama yang baru muncul, karena tombol ini hilang
+                daftarRef.current?.children[pertamaBaru]?.querySelector<HTMLAnchorElement>("h3 a")?.focus();
+              }}
+              className="mt-4 inline-flex h-11 w-full items-center justify-center gap-1.5 rounded-full border border-line bg-paper text-label font-label text-primary hover:bg-primary-soft"
+            >
+              Tampilkan semua{" "}
+              <span className="text-ink-muted">({sisa} lagi)</span>
+            </button>
+          )}
+        </>
       ) : (
         <div className="mt-4 rounded-2xl border border-line bg-paper p-6 text-center">
           <p className="text-body text-ink">Tidak ada artikel yang cocok.</p>
